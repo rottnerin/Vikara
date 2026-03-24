@@ -15,14 +15,14 @@ html { scroll-behavior: smooth; }
 
 [data-theme="light"] {
   --bg:          #EAE2D2;
-  --bg-mid:      #F2EBD8;
-  --bg-card:     #F6F0E4;
-  --bg-raised:   #E2D9C6;
-  --border:      rgba(45,107,90,0.14);
-  --border-mid:  rgba(45,107,90,0.26);
-  --text:        #1D3828;
-  --text-dim:    #4A6A52;
-  --text-muted:  #8A7E6C;
+  --bg-mid:      #EAE2D2;
+  --bg-card:     #E2D9C6;
+  --bg-raised:   #D9CFB8;
+  --border:      rgba(100,80,50,0.18);
+  --border-mid:  rgba(100,80,50,0.30);
+  --text:        #2A1F0E;
+  --text-dim:    #5A4A30;
+  --text-muted:  #9A8A6A;
   --accent:      #2D6B5A;
   --accent-a06:  rgba(45,107,90,0.06);
   --accent-a10:  rgba(45,107,90,0.10);
@@ -32,8 +32,8 @@ html { scroll-behavior: smooth; }
   --warm-a10:    rgba(139,94,60,0.10);
   --warm-a15:    rgba(139,94,60,0.15);
   --warm-a30:    rgba(139,94,60,0.30);
-  --neutral-a25: rgba(29,56,40,0.22);
-  --glow-hero:   rgba(45,107,90,0.05);
+  --neutral-a25: rgba(100,80,50,0.20);
+  --glow-hero:   transparent;
   color-scheme: light;
 }
 
@@ -81,8 +81,7 @@ section { padding: 96px 0; }
 /* ── DIVIDER ── */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
-  opacity: 0.12;
+  background: linear-gradient(90deg, transparent, var(--border-mid) 30%, var(--border-mid) 70%, transparent);
   margin: 0 32px;
 }
 
