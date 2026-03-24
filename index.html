@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,57 +33,52 @@ html { scroll-behavior: smooth; }
   --radius-sm: 6px;
 }
 
-/* Dark mode */
-[data-theme="dark"] {
-  --bg:          #0A1A14;
-  --bg-mid:      #0F2119;
-  --bg-card:     #152C21;
-  --bg-raised:   #1A3628;
-  --border:      rgba(74,174,142,0.13);
-  --border-mid:  rgba(74,174,142,0.22);
-  --text:        #E4F0EA;
-  --text-dim:    #8ABAAA;
-  --text-muted:  #4A7A64;
-  --teal-ui:     var(--teal);
-  --teal-glow:   rgba(74,174,142,0.14);
-  --copper-ui:   var(--copper);
-  --copper-glow: rgba(208,128,96,0.14);
-  --chip-bg:     rgba(74,174,142,0.1);
-  --chip-border: rgba(74,174,142,0.28);
-
-  /* Spectrum segments */
-  --seg-r: rgba(228,240,234,0.12);
-  --seg-p: rgba(228,240,234,0.25);
-  --seg-a: rgba(208,128,96,0.45);
-  --seg-e: var(--teal);
-
-  color-scheme: dark;
+/* ── Light mode (eggshell — default, matches logo) ── */
+[data-theme="light"] {
+  --bg:          #EAE2D2;   /* exact eggshell from logo background */
+  --bg-mid:      #F2EBD8;   /* slightly lighter surface */
+  --bg-card:     #F6F0E4;   /* card / raised surface */
+  --bg-raised:   #E2D9C6;   /* pressed / deeper */
+  --border:      rgba(45,107,90,0.14);
+  --border-mid:  rgba(45,107,90,0.26);
+  --text:        #1D3828;   /* dark forest from logo wordmark */
+  --text-dim:    #4A6A52;
+  --text-muted:  #8A7E6C;   /* warm gray */
+  --teal-ui:     #2D6B5A;   /* forest teal — left V */
+  --teal-glow:   rgba(45,107,90,0.1);
+  --copper-ui:   #8B5E3C;   /* warm copper — right V */
+  --copper-glow: rgba(139,94,60,0.1);
+  --chip-bg:     rgba(45,107,90,0.08);
+  --chip-border: rgba(45,107,90,0.26);
+  --seg-r: rgba(29,56,40,0.1);
+  --seg-p: rgba(29,56,40,0.22);
+  --seg-a: rgba(139,94,60,0.38);
+  --seg-e: #2D6B5A;
+  color-scheme: light;
 }
 
-/* Light mode */
-[data-theme="light"] {
-  --bg:          #F2F8F5;
-  --bg-mid:      #FFFFFF;
-  --bg-card:     #EBF5EF;
-  --bg-raised:   #DDEEE6;
-  --border:      rgba(42,102,82,0.14);
-  --border-mid:  rgba(42,102,82,0.25);
-  --text:        #1A3328;
-  --text-dim:    #3A6652;
-  --text-muted:  #7A9E8E;
-  --teal-ui:     #2A7A5E;
-  --teal-glow:   rgba(42,122,94,0.09);
-  --copper-ui:   #A86040;
-  --copper-glow: rgba(168,96,64,0.09);
-  --chip-bg:     rgba(42,122,94,0.08);
-  --chip-border: rgba(42,122,94,0.28);
-
-  --seg-r: rgba(26,51,40,0.1);
-  --seg-p: rgba(26,51,40,0.22);
-  --seg-a: rgba(168,96,64,0.4);
-  --seg-e: var(--teal-ui);
-
-  color-scheme: light;
+/* ── Dark mode (deep forest night) ── */
+[data-theme="dark"] {
+  --bg:          #0E1C14;
+  --bg-mid:      #132019;
+  --bg-card:     #182C20;
+  --bg-raised:   #1E3628;
+  --border:      rgba(74,174,142,0.13);
+  --border-mid:  rgba(74,174,142,0.24);
+  --text:        #E8F2EC;
+  --text-dim:    #8ABAAA;
+  --text-muted:  #4A7A64;
+  --teal-ui:     #4AAE8E;
+  --teal-glow:   rgba(74,174,142,0.15);
+  --copper-ui:   #D08060;
+  --copper-glow: rgba(208,128,96,0.15);
+  --chip-bg:     rgba(74,174,142,0.1);
+  --chip-border: rgba(74,174,142,0.28);
+  --seg-r: rgba(232,242,236,0.1);
+  --seg-p: rgba(232,242,236,0.22);
+  --seg-a: rgba(208,128,96,0.42);
+  --seg-e: #4AAE8E;
+  color-scheme: dark;
 }
 
 /* ═══════════════════════════════════
@@ -98,6 +93,21 @@ body {
   overflow-x: hidden;
   transition: background var(--transition), color var(--transition);
 }
+
+/* Linen texture overlay — matches logo's canvas-like background */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity var(--transition);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+[data-theme="light"] body::after { opacity: 0.04; }
+[data-theme="dark"]  body::after { opacity: 0.025; }
 
 .container {
   max-width: 1040px;
@@ -1035,7 +1045,7 @@ footer {
 <nav id="main-nav">
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
-      <img src="images/vikara.png" alt="Vikara" class="nav-logo-img" />
+      <img src="images/vikara-final.png" alt="Vikara" class="nav-logo-img" />
       <div class="nav-logo-text">
         <span class="nav-logo-word">Vikara</span>
         <span class="nav-logo-sub">विकार · Transformation</span>
@@ -1075,7 +1085,7 @@ footer {
 
   <div class="hero-inner">
     <div class="hero-logo">
-      <img src="images/vikara.png" alt="Vikara — Built for Limitless Learning" />
+      <img src="images/vikara-final.png" alt="Vikara — Built for Limitless Learning" />
     </div>
 
     <p class="hero-tagline-logo serif">Built for Limitless Learning</p>
@@ -1424,7 +1434,7 @@ footer {
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      <img src="images/vikara.png" alt="Vikara" />
+      <img src="images/vikara-final.png" alt="Vikara" />
       <div class="footer-logo-text">
         <div class="footer-logo-word display">Vikara</div>
         <div class="footer-logo-sub">विकार · Transformation · AES Yokohama</div>
