@@ -391,12 +391,19 @@ canvas#particles {
   justify-content: center;
 }
 .hero-logo img {
-  width: clamp(180px, 36vw, 280px);
+  width: clamp(160px, 28vw, 240px);
   height: auto;
+  border-radius: 20px;
   filter: drop-shadow(0 8px 32px var(--teal-glow));
+  transition: filter var(--transition);
 }
 [data-theme="light"] .hero-logo img {
-  filter: drop-shadow(0 6px 20px rgba(42,122,94,0.2));
+  border-radius: 0;
+  filter: drop-shadow(0 6px 24px rgba(45,107,90,0.18));
+}
+[data-theme="dark"] .hero-logo img {
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(74,174,142,0.15), 0 12px 40px rgba(0,0,0,0.4);
 }
 
 .hero-tagline-logo {
@@ -1088,8 +1095,6 @@ footer {
       <img src="images/vikara-final.png" alt="Vikara — Built for Limitless Learning" />
     </div>
 
-    <p class="hero-tagline-logo serif">Built for Limitless Learning</p>
-
     <h1 class="hero-headline display">
       <span class="word-from">Passengers</span>
       <span class="word-arrow">→</span>
@@ -1473,9 +1478,9 @@ function setTheme(t) {
   initParticles();
 }
 
-// Load saved preference
+// Load saved preference — default to light
 const saved = localStorage.getItem('vikara-theme');
-setTheme(saved || DARK);
+setTheme(saved || LIGHT);
 
 btn.addEventListener('click', () => {
   setTheme(html.getAttribute('data-theme') === DARK ? LIGHT : DARK);
