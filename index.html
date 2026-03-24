@@ -246,14 +246,34 @@ nav {
   z-index: 0;
 }
 
-#hero::after {
+[data-theme="dark"] #hero::after {
   content: '';
   position: absolute;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   width: 800px; height: 800px;
-  background: radial-gradient(circle, var(--glow-hero) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(74,174,142,0.05) 0%, transparent 65%);
   pointer-events: none;
+}
+
+/* ── Hero logo ── */
+.hero-logo {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.05s ease forwards;
+}
+.hero-logo img {
+  width: clamp(200px, 38vw, 300px);
+  height: auto;
+}
+[data-theme="light"] .hero-logo img {
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .hero-logo img {
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(74,174,142,0.14), 0 16px 48px rgba(0,0,0,0.45);
 }
 
 .hero-inner {
@@ -885,6 +905,10 @@ footer {
   <canvas id="particles"></canvas>
 
   <div class="hero-inner">
+    <div class="hero-logo">
+      <img src="images/vikara-final.png" alt="Vikara — Built for Limitless Learning" />
+    </div>
+
     <p class="hero-eyebrow">Educational Consultancy</p>
 
     <h1 class="hero-headline display">
@@ -1317,11 +1341,11 @@ function initParticles() {
       if (isDark) {
         if (p.type === 'accent') ctx.fillStyle = `rgba(74,174,142,${p.alpha})`;
         else if (p.type === 'warm') ctx.fillStyle = `rgba(208,128,96,${p.alpha})`;
-        else ctx.fillStyle = `rgba(232,242,236,${p.alpha * 0.6})`;
+        else ctx.fillStyle = `rgba(232,242,236,${p.alpha * 0.5})`;
       } else {
-        if (p.type === 'accent') ctx.fillStyle = `rgba(45,107,90,${p.alpha})`;
-        else if (p.type === 'warm') ctx.fillStyle = `rgba(139,94,60,${p.alpha})`;
-        else ctx.fillStyle = `rgba(29,56,40,${p.alpha * 0.4})`;
+        if (p.type === 'accent') ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.5})`;
+        else if (p.type === 'warm') ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.7})`;
+        else ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.25})`;
       }
       ctx.fill();
       p.x += p.vx; p.y += p.vy;
