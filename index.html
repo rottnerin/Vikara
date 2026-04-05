@@ -1024,6 +1024,113 @@ nav {
 }
 .btn-cta-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
+/* ════════════ STUDENTS ════════════ */
+.forge-process { margin-top: 48px; }
+
+.forge-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+@media (max-width: 640px) { .forge-steps { grid-template-columns: 1fr; } }
+
+.forge-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.forge-step:hover { border-color: var(--accent-a30); transform: translateY(-3px); }
+
+.forge-step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--accent-a30);
+  flex-shrink: 0;
+  width: 36px;
+}
+.forge-step-body {}
+.forge-step-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.forge-step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+.forge-outcome {
+  background: var(--accent-a10);
+  border: 1px solid var(--accent-a30);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 56px;
+}
+.forge-outcome-icon { font-size: 32px; margin-bottom: 12px; }
+.forge-outcome-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.forge-outcome-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.forge-testimonials-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px, 4vw, 40px);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.forge-videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) { .forge-videos { grid-template-columns: 1fr; } }
+
+.video-placeholder {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: default;
+  transition: border-color 0.2s;
+}
+.video-placeholder:hover { border-color: var(--accent-a30); }
+.video-play {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--accent-a15);
+  border: 1px solid var(--accent-a30);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  font-size: 18px;
+}
+.video-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
 /* ════════════ TEAM ════════════ */
 #team { background: var(--bg-mid); }
 
@@ -1637,9 +1744,84 @@ body.page-active .divider { display: none; }
 <section id="students" class="page-section" data-page="students">
   <div class="container">
     <div class="section-header" style="text-align: center;">
-      <div class="chip chip-teal">Students</div>
-      <h2 class="section-title display">Built for Students.</h2>
-      <p class="section-desc" style="margin: 0 auto;">Content coming soon.</p>
+      <div class="chip chip-teal">Vikara Forge</div>
+      <h2 class="section-title display">From Passion to Impact.</h2>
+      <p class="section-desc" style="margin: 0 auto;">A guided process that turns student interests into real-world change.</p>
+    </div>
+
+    <div class="forge-process">
+      <div class="forge-steps">
+        <div class="forge-step">
+          <div class="forge-step-num">1</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Discover Purpose</div>
+            <p class="forge-step-desc">We begin by helping students identify their interests, values, and passions, uncovering what truly matters to them and where they want to make an impact.</p>
+          </div>
+        </div>
+        <div class="forge-step">
+          <div class="forge-step-num">2</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Define the Problem</div>
+            <p class="forge-step-desc">Students explore real-world issues connected to their interests and learn to frame meaningful, relevant problems worth solving.</p>
+          </div>
+        </div>
+        <div class="forge-step">
+          <div class="forge-step-num">3</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Design the Solution</div>
+            <p class="forge-step-desc">Using design thinking and entrepreneurial frameworks, students develop innovative ideas and project concepts that address their chosen problem.</p>
+          </div>
+        </div>
+        <div class="forge-step">
+          <div class="forge-step-num">4</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Build & Execute</div>
+            <p class="forge-step-desc">Students bring their ideas to life, learning project management, iteration, and execution as they launch and develop their initiatives.</p>
+          </div>
+        </div>
+        <div class="forge-step">
+          <div class="forge-step-num">5</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Create Real-World Impact</div>
+            <p class="forge-step-desc">We guide students to move beyond ideas and achieve tangible outcomes, impacting their communities, organizations, or target audiences.</p>
+          </div>
+        </div>
+        <div class="forge-step">
+          <div class="forge-step-num">6</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Refine & Elevate</div>
+            <p class="forge-step-desc">Students reflect, iterate, and strengthen their projects, focusing on quality, depth, and sustained impact.</p>
+          </div>
+        </div>
+        <div class="forge-step" style="grid-column: 1 / -1;">
+          <div class="forge-step-num">7</div>
+          <div class="forge-step-body">
+            <div class="forge-step-title">Tell the Story</div>
+            <p class="forge-step-desc">We help students articulate their journey, crafting compelling narratives that highlight their growth, leadership, and impact for college applications.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="forge-outcome">
+        <div class="forge-outcome-title display">The Outcome</div>
+        <p class="forge-outcome-text">Students don't just build projects. They become change-makers. Instead of being defined by grades alone, they stand out as individuals who take initiative, solve real problems, and create meaningful impact.</p>
+      </div>
+
+      <h3 class="forge-testimonials-title display">Student Voices.</h3>
+      <div class="forge-videos">
+        <div class="video-placeholder">
+          <div class="video-play">▶</div>
+          <span class="video-label">Testimonial — Coming Soon</span>
+        </div>
+        <div class="video-placeholder">
+          <div class="video-play">▶</div>
+          <span class="video-label">Testimonial — Coming Soon</span>
+        </div>
+        <div class="video-placeholder">
+          <div class="video-play">▶</div>
+          <span class="video-label">Testimonial — Coming Soon</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
