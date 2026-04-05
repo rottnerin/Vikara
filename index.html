@@ -18,22 +18,25 @@ html { scroll-behavior: smooth; }
   --bg-mid:      #EAE2D2;
   --bg-card:     #E2D9C6;
   --bg-raised:   #D9CFB8;
-  --border:      rgba(100,80,50,0.18);
-  --border-mid:  rgba(100,80,50,0.30);
+  --border:      rgba(100,80,50,0.2);
+  --border-mid:  rgba(100,80,50,0.2);
   --text:        #2A1F0E;
   --text-dim:    #5A4A30;
   --text-muted:  #9A8A6A;
   --accent:      #2D6B5A;
-  --accent-a06:  rgba(45,107,90,0.06);
-  --accent-a10:  rgba(45,107,90,0.10);
-  --accent-a15:  rgba(45,107,90,0.15);
-  --accent-a30:  rgba(45,107,90,0.30);
+  --accent-a06:  rgba(45,107,90,0.2);
+  --accent-a10:  rgba(45,107,90,0.2);
+  --accent-a15:  rgba(45,107,90,0.2);
+  --accent-a30:  rgba(45,107,90,0.2);
   --warm:        #8B5E3C;
-  --warm-a10:    rgba(139,94,60,0.10);
-  --warm-a15:    rgba(139,94,60,0.15);
-  --warm-a30:    rgba(139,94,60,0.30);
-  --neutral-a25: rgba(100,80,50,0.20);
+  --warm-a10:    rgba(139,94,60,0.2);
+  --warm-a15:    rgba(139,94,60,0.2);
+  --warm-a30:    rgba(139,94,60,0.2);
+  --neutral-a25: rgba(100,80,50,0.2);
   --glow-hero:   transparent;
+  --spectrum-ink-r: #8e453c;
+  --spectrum-ink-p: #5c5038;
+  --spectrum-ink-a: #9a6622;
   color-scheme: light;
 }
 
@@ -42,38 +45,45 @@ html { scroll-behavior: smooth; }
   --bg-mid:      #132019;
   --bg-card:     #182C20;
   --bg-raised:   #1E3628;
-  --border:      rgba(74,174,142,0.13);
-  --border-mid:  rgba(74,174,142,0.24);
+  --border:      rgba(74,174,142,0.2);
+  --border-mid:  rgba(74,174,142,0.2);
   --text:        #E8F2EC;
   --text-dim:    #8ABAAA;
   --text-muted:  #4A7A64;
   --accent:      #4AAE8E;
-  --accent-a06:  rgba(74,174,142,0.06);
-  --accent-a10:  rgba(74,174,142,0.10);
-  --accent-a15:  rgba(74,174,142,0.15);
-  --accent-a30:  rgba(74,174,142,0.30);
+  --accent-a06:  rgba(74,174,142,0.2);
+  --accent-a10:  rgba(74,174,142,0.2);
+  --accent-a15:  rgba(74,174,142,0.2);
+  --accent-a30:  rgba(74,174,142,0.2);
   --warm:        #D08060;
-  --warm-a10:    rgba(208,128,96,0.10);
-  --warm-a15:    rgba(208,128,96,0.15);
-  --warm-a30:    rgba(208,128,96,0.30);
-  --neutral-a25: rgba(74,174,142,0.18);
-  --glow-hero:   rgba(74,174,142,0.05);
+  --warm-a10:    rgba(208,128,96,0.2);
+  --warm-a15:    rgba(208,128,96,0.2);
+  --warm-a30:    rgba(208,128,96,0.2);
+  --neutral-a25: rgba(74,174,142,0.2);
+  --glow-hero:   rgba(74,174,142,0.2);
+  --spectrum-ink-r: #d8a098;
+  --spectrum-ink-p: #8ab89a;
+  --spectrum-ink-a: #f0b878;
   color-scheme: dark;
 }
 
 /* ── BASE ── */
-body {
+html {
   background: var(--bg);
+  transition: background var(--transition);
+}
+body {
+  background: transparent;
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   line-height: 1.65;
   overflow-x: hidden;
-  transition: background var(--transition), color var(--transition);
+  transition: color var(--transition);
 }
 
 .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
-section { padding: 96px 0; }
+section { padding: 64px 0; }
 
 .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; line-height: 0.95; }
 .serif   { font-family: 'Crimson Pro', serif; }
@@ -100,7 +110,7 @@ section { padding: 96px 0; }
 .chip-warm { background: var(--warm-a10);   color: var(--warm);   border: 1px solid var(--warm-a30); }
 
 /* ── SECTION HEADER ── */
-.section-header { margin-bottom: 56px; }
+.section-header { margin-bottom: 36px; }
 .section-number {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 80px;
@@ -117,6 +127,21 @@ section { padding: 96px 0; }
   margin-bottom: 12px;
   color: var(--text);
 }
+h2.section-title.display {
+  white-space: nowrap;
+  font-size: clamp(14px, min(4.8vw, 7.5vmin), 56px);
+  letter-spacing: 0.03em;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+h2.section-title.display::-webkit-scrollbar { height: 4px; }
+h2.section-title.display::-webkit-scrollbar-thumb {
+  background: var(--border-mid);
+  border-radius: 2px;
+}
 .section-desc {
   font-family: 'Crimson Pro', serif;
   font-size: 19px;
@@ -130,7 +155,7 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 12px 32px;
+  padding: 14px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -148,7 +173,7 @@ nav {
   text-decoration: none;
 }
 .nav-logo-img {
-  height: 34px;
+  height: 52px;
   width: auto;
   border-radius: 5px;
 }
@@ -157,16 +182,17 @@ nav {
 .nav-logo-text { display: flex; flex-direction: column; }
 .nav-logo-word {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
+  font-size: 28px;
   letter-spacing: 0.1em;
   color: var(--text);
   line-height: 1;
 }
 .nav-logo-sub {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--accent);
   letter-spacing: 0.06em;
   line-height: 1;
+  margin-top: 2px;
 }
 
 .nav-links {
@@ -176,9 +202,9 @@ nav {
   list-style: none;
 }
 .nav-links a {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: var(--text-dim);
   text-decoration: none;
   letter-spacing: 0.04em;
   transition: color var(--transition);
@@ -203,9 +229,9 @@ nav {
   background: var(--accent);
   color: var(--bg) !important;
   font-weight: 600 !important;
-  padding: 8px 18px;
+  padding: 10px 22px;
   border-radius: var(--radius);
-  font-size: 13px !important;
+  font-size: 14px !important;
   text-decoration: none;
   transition: opacity 0.2s !important;
 }
@@ -227,13 +253,13 @@ nav {
 
 /* ════════════ HERO ════════════ */
 #hero {
-  min-height: 100vh;
+  min-height: 92vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 120px 32px 80px;
+  padding: 96px 32px 56px;
   position: relative;
   overflow: hidden;
 }
@@ -251,28 +277,27 @@ nav {
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(74,174,142,0.05) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(74,174,142,0.2) 0%, transparent 65%);
   pointer-events: none;
 }
 
 /* ── Hero logo ── */
 .hero-logo {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   opacity: 0;
   animation: fadeUp 0.6s 0.05s ease forwards;
 }
 .hero-logo img {
-  width: clamp(200px, 38vw, 300px);
+  width: clamp(200px, 32vw, 320px);
   height: auto;
 }
 [data-theme="light"] .hero-logo img {
   mix-blend-mode: multiply;
 }
 [data-theme="dark"] .hero-logo img {
-  border-radius: 18px;
-  box-shadow: 0 0 0 1px rgba(74,174,142,0.14), 0 16px 48px rgba(0,0,0,0.45);
+  filter: drop-shadow(0 8px 40px rgba(74,174,142,0.30));
 }
 
 .hero-inner {
@@ -287,7 +312,7 @@ nav {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   opacity: 0;
   animation: fadeUp 0.7s 0.1s ease forwards;
 }
@@ -316,7 +341,7 @@ nav {
   font-weight: 300;
   font-style: italic;
   color: var(--text-dim);
-  margin: 20px 0 48px;
+  margin: 14px 0 32px;
   opacity: 0;
   animation: fadeUp 0.7s 0.35s ease forwards;
 }
@@ -325,7 +350,7 @@ nav {
 .spectrum-hero {
   width: 100%;
   max-width: 640px;
-  margin: 0 auto 52px;
+  margin: 0 auto 32px;
   opacity: 0;
   animation: fadeUp 0.7s 0.45s ease forwards;
 }
@@ -335,16 +360,112 @@ nav {
   overflow: hidden;
   height: 10px;
   margin-bottom: 10px;
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--border-mid) 20%, transparent);
 }
-.seg { flex: 1; height: 100%; transition: box-shadow 0.4s; }
-.seg-r { background: var(--warm-a15); }
-.seg-p { background: var(--neutral-a25); }
-.seg-a { background: var(--warm-a30); }
-.seg-e { background: var(--accent-a30); }
+.spectrum-track::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 38%,
+    color-mix(in srgb, var(--warm) 20%, transparent) 50%,
+    color-mix(in srgb, var(--accent) 20%, transparent) 62%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: spectrumSheenAura 6.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: soft-light;
+  opacity: 0.2;
+}
+.spectrum-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255,255,255,0.2) 48%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.2) 52%,
+    transparent 100%
+  );
+  background-size: 42% 100%;
+  background-repeat: no-repeat;
+  animation: spectrumSheenSweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+}
+[data-theme="dark"] .spectrum-track::after { opacity: 0.2; }
+
+.seg {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 0.4s, filter 0.35s ease;
+}
+.seg-r {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #a03028 42%, var(--warm-a15)),
+    var(--warm-a15),
+    color-mix(in srgb, #c05040 38%, var(--warm-a15))
+  );
+  background-size: 240% 100%;
+  animation: spectrumSegDrift 10s ease-in-out infinite;
+}
+.seg-p {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-a25),
+    color-mix(in srgb, var(--text-muted) 52%, var(--neutral-a25)),
+    var(--neutral-a25)
+  );
+  background-size: 240% 100%;
+  animation: spectrumSegDrift 10s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+.seg-a {
+  background: linear-gradient(
+    90deg,
+    var(--warm-a30),
+    color-mix(in srgb, var(--warm) 50%, var(--warm-a30)),
+    var(--warm-a30)
+  );
+  background-size: 240% 100%;
+  animation: spectrumSegDrift 10s ease-in-out infinite;
+  animation-delay: -5s;
+}
+.seg-e {
+  background: linear-gradient(
+    90deg,
+    var(--accent-a30),
+    color-mix(in srgb, var(--accent) 68%, var(--accent-a30)),
+    var(--accent-a30)
+  );
+  background-size: 240% 100%;
+  animation: spectrumSegDrift 10s ease-in-out infinite;
+  animation-delay: -7.5s;
+}
 .seg-e.glow {
-  background: var(--accent);
-  box-shadow: 0 0 18px var(--accent-a30), 0 0 40px var(--accent-a15);
-  animation: pulse 2s 1.5s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 50%, var(--warm)),
+    var(--accent),
+    color-mix(in srgb, var(--accent) 55%, #ffffff)
+  );
+  background-size: 220% 100%;
+  animation: spectrumSegDrift 5.5s ease-in-out infinite, spectrumExplorerPulse 2.2s ease-in-out infinite;
 }
 
 .spectrum-labels { display: flex; }
@@ -355,9 +476,29 @@ nav {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: spectrumLabelFlow 12s ease-in-out infinite;
 }
-.spectrum-labels .lbl-e { color: var(--accent); }
+.spectrum-labels .lbl-r {
+  background-image: linear-gradient(90deg, var(--spectrum-ink-r), color-mix(in srgb, var(--spectrum-ink-r) 35%, var(--warm)), var(--spectrum-ink-r));
+  animation-delay: 0s;
+}
+.spectrum-labels .lbl-p {
+  background-image: linear-gradient(90deg, var(--spectrum-ink-p), var(--text-muted), var(--spectrum-ink-p));
+  animation-delay: -3s;
+}
+.spectrum-labels .lbl-a {
+  background-image: linear-gradient(90deg, var(--spectrum-ink-a), color-mix(in srgb, var(--warm) 52%, var(--spectrum-ink-a)), var(--spectrum-ink-a));
+  animation-delay: -6s;
+}
+.spectrum-labels .lbl-e {
+  background-image: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 42%, var(--warm)), var(--accent));
+  animation-delay: -9s;
+}
 
 .hero-ctas {
   display: flex;
@@ -407,7 +548,7 @@ nav {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px 24px;
+  padding: 24px 20px;
   position: relative;
   overflow: hidden;
 }
@@ -422,10 +563,10 @@ nav {
 
 .stat-num {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 72px;
+  font-size: 60px;
   line-height: 1;
   letter-spacing: -0.01em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .stat-num.teal { color: var(--accent); }
 .stat-num.warm { color: var(--warm); }
@@ -453,7 +594,7 @@ nav {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 24px;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 @media (max-width: 640px) {
   .shift-orbits { grid-template-columns: 1fr; }
@@ -489,7 +630,7 @@ nav {
   font-weight: 300;
   color: var(--text-dim);
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 36px;
 }
 .shift-tagline strong { color: var(--accent); font-style: normal; }
 
@@ -504,18 +645,18 @@ nav {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px 24px;
+  padding: 24px 20px;
   transition: border-color 0.2s, transform 0.2s;
 }
 .service-card:hover { border-color: var(--accent-a30); transform: translateY(-4px); }
 
-.service-icon { font-size: 28px; margin-bottom: 16px; }
+.service-title { margin-bottom: 8px; }
+.service-icon { display: none; }
 .service-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 22px;
   letter-spacing: 0.05em;
   color: var(--text);
-  margin-bottom: 8px;
 }
 .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
@@ -538,7 +679,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 @media (max-width: 640px) { .spectrum-cards { grid-template-columns: 1fr 1fr; } }
 
@@ -590,7 +731,7 @@ nav {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: start;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 @media (max-width: 640px) { .proof-layout { grid-template-columns: 1fr; } }
 
@@ -612,6 +753,23 @@ nav {
 .proof-stat-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
 
 .proof-image { border-radius: var(--radius); overflow: hidden; }
+.proof-expand-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: var(--radius);
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+.proof-expand-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 .proof-image img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -619,8 +777,66 @@ nav {
   border-radius: var(--radius);
   opacity: 0.92;
   transition: opacity 0.3s;
+  pointer-events: none;
 }
-.proof-image:hover img { opacity: 1; }
+.proof-image:hover img,
+.proof-expand-btn:hover img { opacity: 1; }
+
+/* Full-screen proof image lightbox */
+.proof-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: min(24px, 4vw);
+  box-sizing: border-box;
+}
+.proof-lightbox[hidden] { display: none !important; }
+.proof-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, #0a0a0a 88%, transparent);
+  cursor: zoom-out;
+}
+.proof-lightbox-img {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  cursor: default;
+}
+.proof-lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.proof-lightbox-close:hover { opacity: 0.9; transform: scale(1.05); }
+.proof-lightbox-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .proof-attribution {
   font-size: 12px;
@@ -640,11 +856,11 @@ nav {
 
 .quote-mark {
   font-family: 'Crimson Pro', serif;
-  font-size: 120px;
+  font-size: 80px;
   line-height: 0.6;
   color: var(--accent-a15);
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .quote-text {
   font-family: 'Crimson Pro', serif;
@@ -664,55 +880,43 @@ nav {
   color: var(--accent);
 }
 
-/* ════════════ CTA ════════════ */
-#cta { background: var(--bg); text-align: center; }
+/* ════════════ SERVICES ════════════ */
+#services { background: var(--bg); text-align: center; }
 
-.cta-days {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 120px;
-  line-height: 1;
-  background: linear-gradient(135deg, var(--accent), var(--warm));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: block;
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+  text-align: left;
 }
-.cta-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(28px, 5vw, 48px);
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-  color: var(--text);
-}
-.cta-question {
-  font-family: 'Crimson Pro', serif;
-  font-size: 19px;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--text-dim);
-  max-width: 560px;
-  margin: 0 auto 40px;
-}
+@media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
 
-.pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin: 0 auto 56px;
-  max-width: 720px;
-}
-.pill {
+.services-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 8px 18px;
-  font-size: 13px;
-  color: var(--text-dim);
-  cursor: default;
-  transition: border-color 0.2s, color 0.2s;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.pill:hover { border-color: var(--accent-a30); color: var(--accent); }
+.services-card:hover { border-color: var(--accent-a30); transform: translateY(-4px); }
+
+.services-card-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.services-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.services-card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
 .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
@@ -740,13 +944,110 @@ nav {
 }
 .btn-cta-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
+/* ════════════ TEAM ════════════ */
+#team { background: var(--bg-mid); }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  transition: border-color 0.2s;
+}
+.team-card:hover { border-color: var(--warm-a30); }
+
+.team-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--warm-a15);
+  border: 1px solid var(--warm-a30);
+  color: var(--warm);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.team-photo {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--border);
+  margin-bottom: 16px;
+  display: block;
+}
+.team-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.team-role {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.team-bio {
+  font-family: 'Crimson Pro', serif;
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.team-quote {
+  border-left: 2px solid var(--accent-a30);
+  margin: 20px 0 16px;
+  padding: 10px 16px;
+  background: var(--accent-a06);
+  border-radius: 0 4px 4px 0;
+}
+.team-quote p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.team-quote cite {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-style: normal;
+}
+.team-linkedin {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s;
+}
+.team-linkedin:hover { opacity: 0.7; }
+
 /* ════════════ CONTACT ════════════ */
 #contact { background: var(--bg-mid); }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  gap: 40px;
   align-items: start;
 }
 @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
@@ -855,13 +1156,42 @@ footer {
 }
 .footer-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; margin-top: 2px; }
 
-.footer-team { display: flex; gap: 24px; }
-.footer-person { text-align: right; }
-.footer-name { font-size: 13px; font-weight: 600; color: var(--text-dim); }
-.footer-role { font-size: 11px; color: var(--text-muted); }
+.footer-quote { text-align: right; }
+.footer-quote-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+.footer-quote-attr {
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: block;
+}
 
 .footer-copy { font-size: 12px; color: var(--text-muted); }
 .footer-copy a { color: inherit; }
+
+/* ════════════ PAGE NAVIGATION SYSTEM ════════════ */
+.page-section { display: none; }
+.page-section.active { display: block; padding-top: 96px; }
+body.page-active #hero { display: none; }
+body.page-active .divider { display: none; }
+
+.nav-links a.nav-active { color: var(--text) !important; position: relative; }
+.nav-links a.nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
 
 /* ════════════ ANIMATIONS ════════════ */
 @keyframes fadeUp {
@@ -872,25 +1202,68 @@ footer {
   0%, 100% { box-shadow: 0 0 18px var(--accent-a30), 0 0 40px var(--accent-a15); }
   50%       { box-shadow: 0 0 28px var(--accent-a30), 0 0 60px var(--accent-a15); }
 }
+@keyframes spectrumSegDrift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+@keyframes spectrumSheenAura {
+  0%, 100% { background-position: 0% 50%; opacity: 0.2; }
+  50%       { background-position: 100% 50%; opacity: 0.2; }
+}
+@keyframes spectrumSheenSweep {
+  0%   { background-position: -55% 0; }
+  100% { background-position: 155% 0; }
+}
+@keyframes spectrumExplorerPulse {
+  0%, 100% {
+    box-shadow: 0 0 18px var(--accent-a30), 0 0 42px var(--accent-a15);
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    box-shadow: 0 0 34px var(--accent-a30), 0 0 76px var(--accent-a15);
+    filter: brightness(1.14) saturate(1.1);
+  }
+}
+@keyframes spectrumLabelFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spectrum-track::before,
+  .spectrum-track::after,
+  .seg,
+  .spectrum-labels span {
+    animation: none !important;
+  }
+  .seg-e.glow {
+    box-shadow: 0 0 18px var(--accent-a30), 0 0 40px var(--accent-a15);
+    filter: none;
+  }
+}
 @keyframes orbit-spin    { from { transform: rotate(0deg); }    to { transform: rotate(360deg); } }
 @keyframes counter-spin  { from { transform: rotate(0deg); }    to { transform: rotate(-360deg); } }
 </style>
 </head>
 <body>
 
+<canvas id="orbital-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;"></canvas>
+
 <!-- ═══ NAV ═══ -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <img src="images/vikara-final.png" alt="Vikara" class="nav-logo-img" />
+    <img src="images/vikara-logo.svg" alt="Vikara" class="nav-logo-img" />
     <div class="nav-logo-text">
       <span class="nav-logo-word">Vikara</span>
       <span class="nav-logo-sub">विकार · Transformation</span>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#problem">The Problem</a></li>
-    <li><a href="#shift">Our Approach</a></li>
-    <li><a href="#proof">The Work</a></li>
+    <li><a href="#" data-page="problem">The Problem</a></li>
+    <li><a href="#" data-page="shift">Our Approach</a></li>
+    <li><a href="#" data-page="proof">The Work</a></li>
+    <li><a href="#" data-page="services">Our Services</a></li>
+    <li><a href="#" data-page="team">The Team</a></li>
+    <li><a href="#" data-page="contact">Contact Us</a></li>
   </ul>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark">🌙</button>
@@ -905,7 +1278,7 @@ footer {
 
   <div class="hero-inner">
     <div class="hero-logo">
-      <img src="images/vikara-final.png" alt="Vikara — Built for Limitless Learning" />
+      <img src="images/vikara-logo.svg" alt="Vikara — Built for Limitless Learning" />
     </div>
 
     <p class="hero-eyebrow">Educational Consultancy</p>
@@ -926,16 +1299,16 @@ footer {
         <div class="seg seg-e" id="se"></div>
       </div>
       <div class="spectrum-labels">
-        <span>Resistors</span>
-        <span>Passengers</span>
-        <span>Achievers</span>
+        <span class="lbl-r">Resistors</span>
+        <span class="lbl-p">Passengers</span>
+        <span class="lbl-a">Achievers</span>
         <span class="lbl-e">Explorers</span>
       </div>
     </div>
 
     <div class="hero-ctas">
       <a href="https://calendly.com/vikara" target="_blank" class="btn-primary">Book a Call</a>
-      <a href="#proof" class="btn-ghost">See the Work ↓</a>
+      <a href="#" data-goto="proof" class="btn-ghost">See the Work →</a>
     </div>
   </div>
 </section>
@@ -943,12 +1316,11 @@ footer {
 <div class="divider"></div>
 
 <!-- ═══ PROBLEM ═══ -->
-<section id="problem">
+<section id="problem" class="page-section" data-page="problem">
   <div class="container">
-    <div class="section-header">
-      <span class="section-number">01</span>
+    <div class="section-header" style="text-align: center;">
       <div class="chip chip-warm">The Problem</div>
-      <h2 class="section-title display">The Numbers<br>Don't Lie.</h2>
+      <h2 class="section-title display">The Numbers Don't Lie.</h2>
     </div>
 
     <div class="stat-grid">
@@ -978,12 +1350,11 @@ footer {
 <div class="divider"></div>
 
 <!-- ═══ SHIFT ═══ -->
-<section id="shift">
+<section id="shift" class="page-section" data-page="shift">
   <div class="container">
-    <div class="section-header">
-      <span class="section-number">02</span>
+    <div class="section-header" style="text-align: center;">
       <div class="chip chip-teal">The Vikara Shift</div>
-      <h2 class="section-title display">This Is What<br>We Do.</h2>
+      <h2 class="section-title display">This Is What We Do.</h2>
     </div>
 
     <div class="shift-orbits">
@@ -1051,6 +1422,12 @@ footer {
                 <text x="28" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--text-dim);" font-weight="600">SCI</text>
               </g>
             </g>
+            <g style="transform-origin:100px 100px; animation: orbit-spin 13s linear infinite reverse;">
+              <circle cx="100" cy="172" r="14" style="fill: var(--warm-a10); stroke: var(--warm);" stroke-width="1.5"/>
+              <g style="transform-origin:100px 172px; animation: counter-spin 13s linear infinite reverse;">
+                <text x="100" y="175" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--warm);" font-weight="600">LANG</text>
+              </g>
+            </g>
           </svg>
         </div>
         <p class="orbit-caption">Subjects orbit the student</p>
@@ -1064,18 +1441,15 @@ footer {
 
     <div class="service-grid">
       <div class="service-card">
-        <div class="service-icon">🔭</div>
-        <div class="service-title display">Shift the Center</div>
+        <div class="service-title display">Shift the Center 🔭</div>
         <p class="service-desc">We redesign learning experiences so students drive — not receive.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">🛠️</div>
-        <div class="service-title display">Build Real Things</div>
+        <div class="service-title display">Build Real Things 🛠️</div>
         <p class="service-desc">Students solve real problems for real people — not hypothetical exercises.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <div class="service-title display">AI as a Tool</div>
+        <div class="service-title display">AI as a Tool 🤖</div>
         <p class="service-desc">AI expands what's possible when students already know what they're trying to do.</p>
       </div>
     </div>
@@ -1084,54 +1458,12 @@ footer {
 
 <div class="divider"></div>
 
-<!-- ═══ SPECTRUM ═══ -->
-<section id="spectrum">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-number">03</span>
-      <div class="chip chip-teal">Student Engagement</div>
-      <h2 class="section-title display">Where Are<br>Your Students?</h2>
-    </div>
-
-    <div class="spectrum-full">
-      <div class="sf-r"></div>
-      <div class="sf-p"></div>
-      <div class="sf-a"></div>
-      <div class="sf-e"></div>
-    </div>
-
-    <div class="spectrum-cards">
-      <div class="spectrum-card sc-r">
-        <div class="s-name display">Resistors</div>
-        <p class="s-desc">Actively disengage or disrupt.</p>
-      </div>
-      <div class="spectrum-card sc-p">
-        <div class="s-name display">Passengers</div>
-        <p class="s-desc">Play the game. Don't disrupt.</p>
-      </div>
-      <div class="spectrum-card sc-a">
-        <div class="s-name display">Achievers</div>
-        <p class="s-desc">High grades. Low agency.</p>
-      </div>
-      <div class="spectrum-card sc-e">
-        <div class="s-name display">Explorers</div>
-        <p class="s-desc">Own their learning. Create real things.</p>
-      </div>
-    </div>
-
-    <p class="spectrum-callout serif">Where are your students? Where do they need to go?</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- ═══ PROOF ═══ -->
-<section id="proof">
+<section id="proof" class="page-section" data-page="proof">
   <div class="container">
-    <div class="section-header">
-      <span class="section-number">04</span>
+    <div class="section-header" style="text-align: center;">
       <div class="chip chip-teal">The Work</div>
-      <h2 class="section-title display">What Students<br>Do When Given<br>The Center.</h2>
+      <h2 class="section-title display">What Students Do When Given The Center.</h2>
     </div>
 
     <p class="proof-lead display">
@@ -1160,12 +1492,19 @@ footer {
       </div>
 
       <div class="proof-image">
-        <img src="images/page-1.png" alt="FiltAir — student-built air purification project" loading="lazy" />
+        <button type="button" class="proof-expand-btn" id="proofFiltAirBtn" aria-haspopup="dialog" aria-label="Open project image full screen">
+          <img
+            id="proofFiltAirImg"
+            src="images/page-1.png"
+            alt="FiltAir — student-built air purification project"
+            loading="lazy"
+          />
+        </button>
       </div>
     </div>
 
     <p class="proof-attribution">
-      <strong>FiltAir</strong> · Built at AES Yokohama using the IDI approach.
+      <strong>FiltAir</strong> · Built using the IDI approach.
     </p>
 
     <div class="proof-poster">
@@ -1177,7 +1516,7 @@ footer {
 <div class="divider"></div>
 
 <!-- ═══ QUOTE ═══ -->
-<section id="quote">
+<section id="quote" class="page-section" data-page="proof">
   <div class="container" style="text-align:center;">
     <span class="quote-mark serif">"</span>
     <p class="quote-text serif">Never tell people how to do things. Tell them what to do, and they will surprise you with their ingenuity.</p>
@@ -1187,25 +1526,44 @@ footer {
 
 <div class="divider"></div>
 
-<!-- ═══ CTA ═══ -->
-<section id="cta">
+<!-- ═══ SERVICES ═══ -->
+<section id="services" class="page-section" data-page="services">
   <div class="container">
-    <span class="cta-days display">30</span>
-    <h2 class="cta-title display">Days. One Shift.</h2>
-    <p class="cta-question serif">What's one thing you could do in the next 30 days to move your students from Passengers toward Explorers?</p>
+    <div class="section-header" style="text-align: center;">
+      <div class="chip chip-warm">What We Offer</div>
+      <h2 class="section-title display">Our Services.</h2>
+      <p class="section-desc" style="margin: 0 auto;">Choose the engagement that fits your school's stage of transformation.</p>
+    </div>
 
-    <div class="pills">
-      <span class="pill">🎭 Empathy interview with a historical figure</span>
-      <span class="pill">💰 Math: Family budget &amp; compound interest</span>
-      <span class="pill">🗳️ Civics: First-gen voter experience</span>
-      <span class="pill">✍️ English: Empathy for Animal Farm characters</span>
-      <span class="pill">🌡️ Climate scenario with real data</span>
-      <span class="pill">📐 Geometry: Redesign for real users</span>
+    <div class="services-grid">
+      <div class="services-card">
+        <div class="services-card-num">01</div>
+        <div class="service-icon">🧭</div>
+        <div class="services-card-title display">Innovation Pathway</div>
+        <p class="services-card-desc">We collaborate with schools to design, structure, and implement innovation pathways that integrate seamlessly with IB and AP programs, supporting the development of future-ready skills through design thinking, entrepreneurship, and project-based learning.</p>
+      </div>
+      <div class="services-card">
+        <div class="services-card-num">02</div>
+        <div class="service-icon">📐</div>
+        <div class="services-card-title display">PBL & Experiential Course Design</div>
+        <p class="services-card-desc">We collaborate with teachers and school leaders to design and implement innovation courses that center on impact-driven projects. Our approach integrates design thinking, entrepreneurial mindset, 21st-century skills, and the effective use of AI to prepare students for a rapidly changing world.</p>
+      </div>
+      <div class="services-card">
+        <div class="services-card-num">03</div>
+        <div class="service-icon">🌱</div>
+        <div class="services-card-title display">PBL & Experiential Learning Teacher Training</div>
+        <p class="services-card-desc">We train teachers to design and deliver high-quality project-based learning (PBL) experiences that engage students in meaningful, real-world work. Through targeted professional development, we build teacher capacity in inquiry, assessment, and student-centered instruction. We also support curriculum design and structure, helping schools implement sustainable, rigorous PBL programs. Our approach equips educators with the tools and confidence to transform learning in their classrooms.</p>
+      </div>
+      <div class="services-card">
+        <div class="services-card-num">04</div>
+        <div class="service-icon">⚒️</div>
+        <div class="services-card-title display">Vikara Innovation Forge</div>
+        <p class="services-card-desc">Vikara Forge develops student change-makers. Through entrepreneurship, design thinking, and project-based learning, we help high school students turn their ideas into real-world impact. Our students don't just stand out on applications, they stand for something that matters.</p>
+      </div>
     </div>
 
     <div class="cta-actions">
       <a href="https://calendly.com/vikara" target="_blank" class="btn-cta-primary">Book a Call</a>
-      <a href="mailto:hello@vikara.co" class="btn-cta-ghost">Email Us</a>
       <a href="#contact" class="btn-cta-ghost">Send a Message</a>
     </div>
   </div>
@@ -1214,12 +1572,11 @@ footer {
 <div class="divider"></div>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="contact">
+<section id="contact" class="page-section" data-page="contact">
   <div class="container">
-    <div class="section-header">
-      <span class="section-number">05</span>
+    <div class="section-header" style="text-align: center;">
       <div class="chip chip-teal">Get in Touch</div>
-      <h2 class="section-title display">Start the<br>Conversation.</h2>
+      <h2 class="section-title display">Start the Conversation.</h2>
     </div>
 
     <div class="contact-grid">
@@ -1262,27 +1619,64 @@ footer {
   </div>
 </section>
 
+<!-- ═══ TEAM ═══ -->
+<div class="divider"></div>
+<section id="team" class="page-section" data-page="team">
+  <div class="container">
+    <div class="section-header" style="text-align: center;">
+      <div class="chip chip-warm">The People</div>
+      <h2 class="section-title display">Who We Are.</h2>
+      <p class="section-desc" style="max-width: 560px; margin: 0 auto;">Two educators who've seen what happens when students are given the center.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="images/sam-headshot.jpg" alt="Sam Vierra" class="team-photo" />
+        <div class="team-name display">Sam</div>
+        <div class="team-role">IDI Educator</div>
+        <p class="team-bio">Coordinator for the Institute of Design and Innovation, American Embassy School</p>
+        <p class="team-bio">For nearly a decade, Sam has been designing and implementing innovative teaching and learning practices. His interest in reimagining education began after watching <em>Most Likely to Succeed</em>, a documentary that explored groundbreaking approaches to course design and assessment at High Tech High.</p>
+        <p class="team-bio">At Stanford's d.school, Sam explored ways to integrate design and systems thinking into his courses. Building on this work, he partnered with the d.school to develop the Global Sustainability by Design program at Punahou School in Hawaii.</p>
+        <p class="team-bio">In 2022, Sam earned a Master's in School Leadership from Harvard's Graduate School of Education, focusing on leading change within independent schools. He has had the opportunity to collaborate with Tony Wagner in designing authentic, innovative programs that equip students with the mindsets and skill sets essential for 21st-century learning.</p>
+        <p class="team-bio">Currently, Sam leads the Institute for Design and Innovation (IDI) at the American Embassy School in New Delhi, where he continues to push the boundaries of student-centered, experiential learning.</p>
+        <a href="https://www.linkedin.com/in/slvierra/" target="_blank" class="team-linkedin">LinkedIn →</a>
+      </div>
+      <div class="team-card">
+        <img src="images/ryan-headshot.jpg" alt="Ryan McKinnie" class="team-photo" />
+        <div class="team-name display">Ryan</div>
+        <div class="team-role">EdTech & AI Specialist</div>
+        <p class="team-bio">Technology Innovation Coordinator, American Embassy School</p>
+        <p class="team-bio">With more than 15 years of international teaching experience, Ryan McKinnie is an educator and technology leader whose career has taken him from history classrooms in China to PYP adventures in Lebanon. Now based in New Delhi, he serves as the PreK–12 Technology Integration Coordinator at the American Embassy School, where he helps students and teachers explore the creative possibilities of technology.</p>
+        <p class="team-bio">Ryan is passionate about blending hands-on learning with digital innovation. At AES, he leads the makerspace and supports technology integration across grade levels, helping students design, code, and create with tools ranging from 3D printers and robots to augmented reality.</p>
+        <p class="team-bio">By weaving together traditional pedagogy, emerging technologies, and creative problem-solving, Ryan empowers learners of all ages to collaborate, experiment, and build the skills they need for a rapidly changing world. This year, he is especially focused on partnering with IDI students to think outside the box with AI—exploring ways to 10x their impact, scale their service learning projects, and apply an entrepreneurial mindset to amplify innovation and real-world change.</p>
+        <a href="https://www.linkedin.com/in/ryan-mckinnie-13500b94/" target="_blank" class="team-linkedin">LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-logo-wrap">
-    <img src="images/vikara-final.png" alt="Vikara" class="footer-logo-img" />
+    <img src="images/vikara-logo.svg" alt="Vikara" class="footer-logo-img" />
     <div>
       <div class="footer-logo-name">Vikara</div>
-      <div class="footer-sub">विकार · Transformation · AES Yokohama</div>
+      <div class="footer-sub">विकार · Transformation</div>
     </div>
   </div>
-  <div class="footer-team">
-    <div class="footer-person">
-      <div class="footer-name">Sam</div>
-      <div class="footer-role">IDI Educator</div>
-    </div>
-    <div class="footer-person">
-      <div class="footer-name">Ryan</div>
-      <div class="footer-role">EdTech &amp; AI Specialist</div>
-    </div>
+  <div class="footer-quote">
+    <p class="footer-quote-text">"Never tell people how to do things. Tell them what to do, and they will surprise you with their ingenuity."</p>
+    <p class="footer-quote-attr">— General George Patton</p>
   </div>
   <div class="footer-copy">© 2026 Vikara · <a href="mailto:hello@vikara.co">hello@vikara.co</a></div>
 </footer>
+
+<div id="proofLightbox" class="proof-lightbox" hidden aria-modal="true" role="dialog" aria-label="Project image">
+  <div class="proof-lightbox-backdrop" data-proof-lightbox-dismiss tabindex="-1"></div>
+  <button type="button" class="proof-lightbox-close" id="proofLightboxClose" aria-label="Close full screen image">×</button>
+  <img class="proof-lightbox-img" id="proofLightboxImg" src="" alt="" />
+</div>
 
 <!-- ═══ JS ═══ -->
 <script>
@@ -1323,7 +1717,7 @@ function initParticles() {
     this.r = Math.random() * 1.4 + 0.3;
     this.vx = (Math.random() - 0.5) * 0.18;
     this.vy = (Math.random() - 0.5) * 0.18;
-    this.alpha = Math.random() * 0.45 + 0.08;
+    this.alpha = 0.2;
     this.type = Math.random() < 0.12 ? 'accent' : (Math.random() < 0.08 ? 'warm' : 'base');
   }
 
@@ -1340,11 +1734,11 @@ function initParticles() {
       if (isDark) {
         if (p.type === 'accent') ctx.fillStyle = `rgba(74,174,142,${p.alpha})`;
         else if (p.type === 'warm') ctx.fillStyle = `rgba(208,128,96,${p.alpha})`;
-        else ctx.fillStyle = `rgba(232,242,236,${p.alpha * 0.5})`;
+        else ctx.fillStyle = `rgba(74,174,142,${p.alpha * 0.4})`;
       } else {
-        if (p.type === 'accent') ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.5})`;
-        else if (p.type === 'warm') ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.7})`;
-        else ctx.fillStyle = `rgba(139,94,60,${p.alpha * 0.25})`;
+        if (p.type === 'accent') ctx.fillStyle = `rgba(139,94,60,${p.alpha})`;
+        else if (p.type === 'warm') ctx.fillStyle = `rgba(139,94,60,${p.alpha})`;
+        else ctx.fillStyle = `rgba(139,94,60,${p.alpha})`;
       }
       ctx.fill();
       p.x += p.vx; p.y += p.vy;
@@ -1370,12 +1764,192 @@ window.addEventListener('load', () => {
   setTimeout(() => { document.getElementById('se').classList.add('glow'); }, 900);
 });
 
+/* ── Proof image full-screen lightbox ── */
+(function() {
+  const trigger = document.getElementById('proofFiltAirBtn');
+  const sourceImg = document.getElementById('proofFiltAirImg');
+  const root = document.getElementById('proofLightbox');
+  const lbImg = document.getElementById('proofLightboxImg');
+  const closeBtn = document.getElementById('proofLightboxClose');
+  const backdrop = root && root.querySelector('[data-proof-lightbox-dismiss]');
+  if (!trigger || !sourceImg || !root || !lbImg || !closeBtn || !backdrop) return;
+
+  let lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    lbImg.src = sourceImg.currentSrc || sourceImg.src;
+    lbImg.alt = sourceImg.alt || '';
+    root.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function close() {
+    root.hidden = true;
+    lbImg.removeAttribute('src');
+    document.body.style.overflow = '';
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  trigger.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !root.hidden) close();
+  });
+})();
+
 /* ── Mobile nav ── */
 (function() {
   const mobileBtn = document.querySelector('.btn-nav-mobile');
   function check() { mobileBtn.style.display = window.innerWidth <= 640 ? 'inline-block' : 'none'; }
   check();
   window.addEventListener('resize', check);
+})();
+
+/* ── Orbital Rings Background ── */
+(function() {
+  const canvas = document.getElementById('orbital-bg');
+  const ctx = canvas.getContext('2d');
+
+  const SEED = 42, CENTERS = 5, SPACING = 70, FADE = 0.55, SIDES = 90, OPACITY = 0.06, SPEED = 0.25;
+
+  function mkRng(seed) {
+    let s = seed >>> 0;
+    return function() {
+      s = (s + 0x6D2B79F5) >>> 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  let ringCenters = [], ringPhases = [], noiseT = 0, W = 0, H = 0;
+
+  function getColors() {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    return dark
+      ? { teal: [74,174,142], copper: [208,128,96] }
+      : { teal: [45,107,90],  copper: [139,94,60]  };
+  }
+
+  function initRings() {
+    const rng = mkRng(SEED);
+    ringCenters = []; ringPhases = [];
+    for (let i = 0; i < CENTERS; i++) {
+      ringCenters.push({ x: W*0.1 + rng()*W*0.8, y: H*0.1 + rng()*H*0.8, teal: rng() < 0.60 });
+      ringPhases.push(rng() * SPACING);
+    }
+    for (let iter = 0; iter < 40; iter++) {
+      for (let i = 0; i < CENTERS; i++) {
+        for (let j = i+1; j < CENTERS; j++) {
+          const dx = ringCenters[j].x - ringCenters[i].x;
+          const dy = ringCenters[j].y - ringCenters[i].y;
+          const d  = Math.sqrt(dx*dx + dy*dy) || 0.001;
+          const minD = Math.max(W, H) * 0.22;
+          if (d < minD) {
+            const push = (minD - d) / d * 0.3;
+            ringCenters[i].x -= dx*push; ringCenters[i].y -= dy*push;
+            ringCenters[j].x += dx*push; ringCenters[j].y += dy*push;
+          }
+        }
+      }
+    }
+  }
+
+  function resize() {
+    canvas.width  = W = window.innerWidth;
+    canvas.height = H = window.innerHeight;
+    initRings();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const { teal, copper } = getColors();
+    const maxR = Math.sqrt(W*W + H*H);
+    for (let ci = 0; ci < CENTERS; ci++) {
+      const ctr = ringCenters[ci];
+      const col = ctr.teal ? teal : copper;
+      const phase = (noiseT * SPEED * 180 + ringPhases[ci]) % SPACING;
+      let r = phase;
+      while (r < maxR * 1.1) {
+        const t    = r / maxR;
+        const bell = Math.exp(-Math.pow((t - 0.35) / FADE, 2) * 6);
+        const a    = OPACITY * bell;
+        if (a < 0.003) { r += SPACING; continue; }
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${a.toFixed(4)})`;
+        ctx.lineWidth = 0.7 + bell * 0.6;
+        for (let s = 0; s <= SIDES; s++) {
+          const ang = s / SIDES * Math.PI * 2;
+          const px = ctr.x + Math.cos(ang) * r;
+          const py = ctr.y + Math.sin(ang) * r;
+          s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        r += SPACING;
+      }
+    }
+    noiseT += 0.00016;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+// ── TAB NAVIGATION ──
+(function() {
+  const navLinks = document.querySelectorAll('.nav-links a[data-page]');
+  const pageSections = document.querySelectorAll('.page-section');
+
+  function showPage(page) {
+    pageSections.forEach(s => s.classList.remove('active'));
+    navLinks.forEach(a => a.classList.remove('nav-active'));
+
+    if (!page || page === 'home') {
+      document.body.classList.remove('page-active');
+    } else {
+      document.querySelectorAll(`.page-section[data-page="${page}"]`).forEach(s => s.classList.add('active'));
+      const activeLink = document.querySelector(`.nav-links a[data-page="${page}"]`);
+      if (activeLink) activeLink.classList.add('nav-active');
+      document.body.classList.add('page-active');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  // Nav tab clicks
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      showPage(link.dataset.page);
+    });
+  });
+
+  // Logo → home
+  document.querySelector('.nav-logo').addEventListener('click', e => {
+    e.preventDefault();
+    showPage('home');
+  });
+
+  // Hero "See the Work" button
+  document.querySelectorAll('a[data-goto]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      showPage(a.dataset.goto);
+    });
+  });
+
+  // In-page #contact links → contact page
+  document.querySelectorAll('a[href="#contact"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      showPage('contact');
+    });
+  });
 })();
 </script>
 </body>
