@@ -2281,14 +2281,19 @@ window.addEventListener('load', () => {
 })();
 
 // ── STAT COUNTERS ──
-(function() {
-  function animateCounter(el) {
+window.animateCountersInPage = function(page) {
+  const selector = page
+    ? `.page-section[data-page="${page}"] [data-count]`
+    : '[data-count]';
+  document.querySelectorAll(selector).forEach(el => {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
+
     const target = parseFloat(el.dataset.count);
     const suffix = el.dataset.suffix || '';
     const isDecimal = target % 1 !== 0;
     const duration = 1600;
     const steps = 60;
-    const interval = duration / steps;
     let current = 0;
     const increment = target / steps;
 
@@ -2299,33 +2304,9 @@ window.addEventListener('load', () => {
         clearInterval(timer);
       }
       el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-    }, interval);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.animated) {
-        entry.target.dataset.animated = 'true';
-        animateCounter(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  function observeAll() {
-    document.querySelectorAll('[data-count]').forEach(el => {
-      if (!el.dataset.animated) observer.observe(el);
-    });
-  }
-
-  observeAll();
-
-  // Re-trigger when tabs are switched
-  document.addEventListener('click', e => {
-    const link = e.target.closest('a[data-page]');
-    if (!link) return;
-    setTimeout(observeAll, 120);
+    }, duration / steps);
   });
-})();
+};
 
 // ── TAB NAVIGATION ──
 (function() {
@@ -2343,6 +2324,7 @@ window.addEventListener('load', () => {
       const activeLink = document.querySelector(`.nav-links a[data-page="${page}"]`);
       if (activeLink) activeLink.classList.add('nav-active');
       document.body.classList.add('page-active');
+      setTimeout(() => window.animateCountersInPage(page), 80);
     }
     window.scrollTo(0, 0);
   }
