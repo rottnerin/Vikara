@@ -1560,17 +1560,17 @@ body.page-active .divider { display: none; }
 
     <div class="stat-grid">
       <div class="stat-card teal">
-        <div class="stat-num teal">65K</div>
+        <div class="stat-num teal" data-count="65" data-suffix="K">0K</div>
         <div class="stat-label">Students surveyed. Most are Passengers.</div>
         <div class="stat-source">Berkey Institute · The Disengagement Gap</div>
       </div>
       <div class="stat-card warm">
-        <div class="stat-num warm">10%</div>
+        <div class="stat-num warm" data-count="10" data-suffix="%">0%</div>
         <div class="stat-label">Are genuine Explorers.</div>
         <div class="stat-source">Berkey Institute · 2024–25</div>
       </div>
       <div class="stat-card warm">
-        <div class="stat-num warm">90%</div>
+        <div class="stat-num warm" data-count="90" data-suffix="%">0%</div>
         <div class="stat-label">White-collar jobs at risk from AI.</div>
         <div class="stat-source">Christensen Institute</div>
       </div>
@@ -1746,7 +1746,7 @@ body.page-active .divider { display: none; }
     <div class="proof-layout">
       <div class="proof-stats">
         <div class="proof-stat">
-          <div class="proof-stat-num display">1.4M</div>
+          <div class="proof-stat-num display" data-count="1.4" data-suffix="M">0M</div>
           <div class="proof-stat-label">Social media reach</div>
         </div>
         <div class="proof-stat">
@@ -1754,11 +1754,11 @@ body.page-active .divider { display: none; }
           <div class="proof-stat-label">Media coverage</div>
         </div>
         <div class="proof-stat">
-          <div class="proof-stat-num display">70</div>
+          <div class="proof-stat-num display" data-count="70" data-suffix="">0</div>
           <div class="proof-stat-label">Students reached in workshops</div>
         </div>
         <div class="proof-stat">
-          <div class="proof-stat-num display">3</div>
+          <div class="proof-stat-num display" data-count="3" data-suffix="">0</div>
           <div class="proof-stat-label">Countries with active partnerships</div>
         </div>
       </div>
@@ -2278,6 +2278,53 @@ window.addEventListener('load', () => {
   window.addEventListener('resize', resize);
   resize();
   draw();
+})();
+
+// ── STAT COUNTERS ──
+(function() {
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const isDecimal = target % 1 !== 0;
+    const duration = 1600;
+    const steps = 60;
+    const interval = duration / steps;
+    let current = 0;
+    const increment = target / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+    }, interval);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  function observeAll() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      if (!el.dataset.animated) observer.observe(el);
+    });
+  }
+
+  observeAll();
+
+  // Re-trigger when tabs are switched
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[data-page]');
+    if (!link) return;
+    setTimeout(observeAll, 120);
+  });
 })();
 
 // ── TAB NAVIGATION ──
