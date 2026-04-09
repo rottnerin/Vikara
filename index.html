@@ -243,9 +243,9 @@ nav {
   .btn-nav { display: none !important; }
   .nav-hamburger { display: flex !important; }
 
+  #hero-video { height: 100vh; }
   #hero {
-    padding: 72px 20px 40px;
-    min-height: 85vh;
+    padding: 48px 20px 48px;
   }
   .hero-logo img {
     width: clamp(120px, 36vw, 180px);
@@ -348,16 +348,31 @@ nav {
 .mobile-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
 
 /* ════════════ HERO ════════════ */
+#hero-video {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+#hero-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.50;
+  display: block;
+}
+
 #hero {
-  min-height: 92vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 96px 32px 56px;
+  padding: 72px 32px 64px;
   position: relative;
   overflow: hidden;
+  background: var(--bg);
 }
 
 #particles {
@@ -1675,25 +1690,23 @@ body.page-active .divider { display: none; }
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <canvas id="particles"></canvas>
-
+<!-- ═══ HERO VIDEO ═══ -->
+<section id="hero-video">
   <video
-    class="hero-bg-video"
-    src="vikara-hero-bg.mp4"
+    src="vikara-hero-bg-v2.mp4"
     autoplay
     muted
     loop
     playsinline
     aria-hidden="true"
   ></video>
+</section>
+
+<!-- ═══ HERO CONTENT ═══ -->
+<section id="hero">
+  <canvas id="particles"></canvas>
 
   <div class="hero-inner">
-    <div class="hero-logo">
-      <img src="images/vikara-logo.svg" alt="Vikara — Built for Limitless Learning" />
-    </div>
-
     <p class="hero-eyebrow">Educational Consultancy</p>
 
     <h1 class="hero-headline display">
