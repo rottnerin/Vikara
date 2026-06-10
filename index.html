@@ -1728,12 +1728,137 @@ nav {
 /* ════════════ TEAM ════════════ */
 #team { background: var(--bg-mid); }
 
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+/* ── Rolodex ── */
+.rolodex {
+  max-width: 800px;
+  margin: 0 auto;
 }
-@media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+.rolodex-track {
+  position: relative;
+}
+.rolodex-card {
+  display: none;
+}
+.rolodex-card.active {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 48px;
+  align-items: start;
+  animation: rdxEnter 0.35s ease both;
+}
+.rolodex-card.enter-left  { animation-name: rdxEnterLeft; }
+.rolodex-card.enter-right { animation-name: rdxEnterRight; }
+@keyframes rdxEnterLeft  { from { opacity:0; transform: translateX(-36px); } to { opacity:1; transform: translateX(0); } }
+@keyframes rdxEnterRight { from { opacity:0; transform: translateX( 36px); } to { opacity:1; transform: translateX(0); } }
+@keyframes rdxEnter      { from { opacity:0; } to { opacity:1; } }
+
+.rolodex-card .team-photo {
+  grid-column: 1;
+  grid-row: 1 / 10;
+  width: 180px;
+  height: 220px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--border);
+  margin-bottom: 0;
+  align-self: start;
+}
+.rolodex-card .team-name,
+.rolodex-card .team-role,
+.rolodex-card .team-bio,
+.rolodex-card .team-linkedin { grid-column: 2; }
+
+@media (max-width: 600px) {
+  .rolodex-card.active {
+    grid-template-columns: 1fr;
+  }
+  .rolodex-card .team-photo {
+    grid-column: 1; grid-row: auto;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+  }
+  .rolodex-card .team-name,
+  .rolodex-card .team-role,
+  .rolodex-card .team-bio,
+  .rolodex-card .team-linkedin { grid-column: 1; }
+}
+
+.rolodex-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+.rolodex-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.rolodex-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-a10);
+  color: var(--accent);
+}
+.rolodex-btn svg { width: 18px; height: 18px; pointer-events: none; }
+.rolodex-counter {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  min-width: 36px;
+  text-align: center;
+}
+.rolodex-names {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.rolodex-name-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 8px 8px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
+}
+.rolodex-name-btn:hover {
+  border-color: var(--accent-a30);
+  background: var(--accent-a06);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+.rolodex-name-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-a10);
+  color: var(--accent);
+}
+.rolodex-name-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+}
 
 .team-card {
   background: var(--bg-card);
@@ -2598,7 +2723,7 @@ body.page-active .divider { display: none; }
 
     <div class="section-banner">
       <img
-        src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=80"
+        src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?auto=format&fit=crop&w=1200&q=80"
         alt="Students engaged in hands-on collaborative project work"
         loading="lazy"
       />
@@ -2714,7 +2839,7 @@ body.page-active .divider { display: none; }
       <!-- 01 Innovation Pathway -->
       <div class="services-detail-inner active" data-service="0">
         <div class="services-panel-image">
-          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80" alt="Students collaborating on an innovation challenge" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Design thinking workshop with sticky notes" loading="lazy" />
         </div>
         <div class="services-detail-tagline">Designing the conditions for student-driven learning</div>
         <div class="services-detail-body">
@@ -2751,7 +2876,7 @@ body.page-active .divider { display: none; }
       <!-- 02 PBL & Experiential Course Design -->
       <div class="services-detail-inner" data-service="1">
         <div class="services-panel-image">
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" alt="Teachers co-designing an experiential learning course" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80" alt="Students deep in a hands-on project" loading="lazy" />
         </div>
         <div class="services-detail-tagline">Building courses where the learning is the doing</div>
         <div class="services-detail-body">
@@ -2790,7 +2915,7 @@ body.page-active .divider { display: none; }
       <!-- 03 PBL & Experiential Learning Teacher Training -->
       <div class="services-detail-inner" data-service="2">
         <div class="services-panel-image">
-          <img src="https://images.unsplash.com/photo-1531498860502-7c67cf519b9e?auto=format&fit=crop&w=1200&q=80" alt="Professional development workshop for educators" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80" alt="Teacher leading a group discussion" loading="lazy" />
         </div>
         <div class="services-detail-tagline">Building the teachers who build the classrooms</div>
         <div class="services-detail-body">
@@ -2986,8 +3111,26 @@ body.page-active .divider { display: none; }
       <p class="section-desc">Two educators who've seen what happens when students are given the center.</p>
     </div>
 
-    <div class="team-grid">
-      <div class="team-card">
+    <div class="rolodex">
+
+      <div class="rolodex-names">
+        <button class="rolodex-name-btn active" data-index="0">
+          <img src="images/sam-headshot.jpg" alt="Sam" class="rolodex-name-avatar" />
+          <span>Sam</span>
+        </button>
+        <button class="rolodex-name-btn" data-index="1">
+          <img src="images/ryan-headshot.jpg" alt="Ryan" class="rolodex-name-avatar" />
+          <span>Ryan</span>
+        </button>
+        <button class="rolodex-name-btn" data-index="2">
+          <img src="images/warren-headshot.jpg" alt="Warren" class="rolodex-name-avatar" style="object-position: center 60%;" />
+          <span>Warren</span>
+        </button>
+      </div>
+
+      <div class="rolodex-track">
+
+      <div class="team-card rolodex-card active" data-index="0">
         <img src="images/sam-headshot.jpg" alt="Sam Vierra" class="team-photo" loading="lazy" />
         <div class="team-name display">Sam</div>
         <div class="team-role">IDI Educator</div>
@@ -2998,7 +3141,7 @@ body.page-active .divider { display: none; }
         <p class="team-bio">Currently, Sam leads the Institute for Design and Innovation (IDI) at the American Embassy School in New Delhi, where he continues to push the boundaries of student-centered, experiential learning.</p>
         <a href="https://www.linkedin.com/in/slvierra/" target="_blank" rel="noopener noreferrer" class="team-linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Connect on LinkedIn</a>
       </div>
-      <div class="team-card">
+      <div class="team-card rolodex-card" data-index="1">
         <img src="images/ryan-headshot.jpg" alt="Ryan McKinnie" class="team-photo" loading="lazy" />
         <div class="team-name display">Ryan</div>
         <div class="team-role">EdTech & AI Specialist</div>
@@ -3008,7 +3151,7 @@ body.page-active .divider { display: none; }
         <p class="team-bio">By weaving together traditional pedagogy, emerging technologies, and creative problem-solving, Ryan empowers learners of all ages to collaborate, experiment, and build the skills they need for a rapidly changing world. This year, he is especially focused on partnering with IDI students to think outside the box with AI—exploring ways to 10x their impact, scale their service learning projects, and apply an entrepreneurial mindset to amplify innovation and real-world change.</p>
         <a href="https://www.linkedin.com/in/ryan-mckinnie-13500b94/" target="_blank" rel="noopener noreferrer" class="team-linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Connect on LinkedIn</a>
       </div>
-      <div class="team-card">
+      <div class="team-card rolodex-card" data-index="2">
         <img src="images/warren-headshot.jpg" alt="Warren" class="team-photo" loading="lazy" style="object-position: center 60%;" />
         <div class="team-name display">Warren</div>
         <div class="team-role">Director of High School Counseling</div>
@@ -3017,7 +3160,20 @@ body.page-active .divider { display: none; }
         <p class="team-bio">Currently, he is the Director of High School Counseling at American Embassy School, where he worked to streamline comprehensive counseling services, including post-secondary planning, and supported the launch of the Institute of Design and Innovation, and played an active role in shaping high school policies and procedures.</p>
         <p class="team-bio">He frequently presents on a wide range of counseling and secondary school leadership topics, including developing pathways to graduation, best practices in counseling models in international schools, innovative ways to partner with families, and the use of technology and AI. He holds a B.A. in History and Psychology, an M.A. in Education, and is actively pursuing certification in Leadership in Education.</p>
       </div>
-    </div>
+
+      </div><!-- /rolodex-track -->
+
+      <div class="rolodex-controls">
+        <button class="rolodex-btn rolodex-prev" aria-label="Previous profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="rolodex-counter">1 / 3</span>
+        <button class="rolodex-btn rolodex-next" aria-label="Next profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div><!-- /rolodex -->
+
   </div>
 </section>
 <div class="divider"></div>
@@ -3533,6 +3689,54 @@ window.animateCountersInPage = function(page) {
       panels.forEach(p => p.classList.toggle('active', p.dataset.service === idx));
     });
   });
+})();
+
+// ── Rolodex ──
+(function() {
+  const cards    = Array.from(document.querySelectorAll('.rolodex-card'));
+  const nameBtns = Array.from(document.querySelectorAll('.rolodex-name-btn'));
+  const counter  = document.querySelector('.rolodex-counter');
+  const prevBtn  = document.querySelector('.rolodex-prev');
+  const nextBtn  = document.querySelector('.rolodex-next');
+  if (!cards.length) return;
+
+  let current = 0;
+
+  function goTo(idx, direction) {
+    const from = current;
+    current = (idx + cards.length) % cards.length;
+    if (from === current) return;
+
+    cards[from].classList.remove('active', 'enter-left', 'enter-right');
+    if (nameBtns[from]) nameBtns[from].classList.remove('active');
+
+    const enterClass = direction === 'next' ? 'enter-right' : 'enter-left';
+    cards[current].classList.add('active', enterClass);
+    if (nameBtns[current]) nameBtns[current].classList.add('active');
+    if (counter) counter.textContent = (current + 1) + ' / ' + cards.length;
+
+    cards[current].addEventListener('animationend', () => {
+      cards[current].classList.remove('enter-left', 'enter-right');
+    }, { once: true });
+  }
+
+  prevBtn && prevBtn.addEventListener('click', () => goTo(current - 1, 'prev'));
+  nextBtn && nextBtn.addEventListener('click', () => goTo(current + 1, 'next'));
+  nameBtns.forEach(btn => btn.addEventListener('click', () => {
+    const idx = parseInt(btn.dataset.index);
+    goTo(idx, idx > current ? 'next' : 'prev');
+  }));
+
+  // touch swipe
+  let touchStartX = 0;
+  const track = document.querySelector('.rolodex-track');
+  if (track) {
+    track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1), dx < 0 ? 'next' : 'prev');
+    }, { passive: true });
+  }
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
