@@ -3340,12 +3340,13 @@ window.addEventListener('load', () => {
 
 /* ── Hero video: play once, then fade out and reveal the CTA ── */
 (function() {
-  const vid     = document.querySelector('#hero .hero-bg-video');
-  const overlay = document.querySelector('#hero .hero-overlay');
-  const inner   = document.querySelector('#hero .hero-inner');
-  const hint    = document.querySelector('#hero .hero-scroll-hint');
+  const vid      = document.querySelector('#hero .hero-bg-video');
+  const overlay  = document.querySelector('#hero .hero-overlay');
+  const inner    = document.querySelector('#hero .hero-inner');
+  const hint     = document.querySelector('#hero .hero-scroll-hint');
   const particles = document.getElementById('particles');
-  if (!vid) return;
+  const hero     = document.getElementById('hero');
+  if (!vid || !hero) return;
 
   // Hide hero content while video plays
   [inner, hint, particles, overlay].forEach(el => {
@@ -3363,19 +3364,19 @@ window.addEventListener('load', () => {
     vid.style.transition = 'opacity 2.2s ease';
     vid.style.opacity    = '0';
 
-    // Fade overlay in — gives the settled background
+    // Fade overlay in
     if (overlay) {
       overlay.style.transition = 'opacity 2s 0.2s ease';
       overlay.style.opacity    = '1';
     }
 
-    // Reveal particles subtly
+    // Reveal particles
     if (particles) {
       particles.style.transition = 'opacity 1.2s 0.6s ease';
       particles.style.opacity    = '1';
     }
 
-    // Fade in hero content (headline, CTA, etc.)
+    // Fade in hero content
     if (inner) {
       inner.style.transition = 'opacity 1.2s 0.5s ease';
       inner.style.opacity    = '1';
@@ -3390,9 +3391,10 @@ window.addEventListener('load', () => {
 
   vid.addEventListener('ended', reveal);
   vid.addEventListener('error', reveal);
+  vid.addEventListener('abort', reveal);
 
-  // Fallback: if autoplay is blocked, reveal after 2.5 s
-  setTimeout(() => { if (vid.paused && !vid.played.length) reveal(); }, 2500);
+  // Fallback: reveal quickly if video never loads/plays (e.g. file not found)
+  setTimeout(() => { if (!done) reveal(); }, 1200);
 })();
 
 /* ── Floating CTA visibility on scroll ── */
