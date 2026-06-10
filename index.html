@@ -1022,6 +1022,146 @@ nav {
 }
 .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
+/* ── Feature rows (lirvana-style alternating image + text) ── */
+.feature-rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 56px;
+  border-top: 1px solid var(--border);
+}
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border);
+}
+.feature-row-reverse .feature-row-image { order: 2; }
+.feature-row-reverse .feature-row-text  { order: 1; }
+
+.feature-row-image {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  position: relative;
+}
+.feature-row-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.feature-row:hover .feature-row-image img { transform: scale(1.04); }
+
+.feature-row-image-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 20px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+.feature-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.feature-row-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(38px, 5.5vw, 64px);
+  letter-spacing: 0.03em;
+  line-height: 0.93;
+  color: var(--text);
+}
+.feature-row-desc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 19px;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+  .feature-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 0;
+  }
+  .feature-row-reverse .feature-row-image { order: 0; }
+  .feature-row-reverse .feature-row-text  { order: 0; }
+}
+
+/* ── Section banner image ── */
+.section-banner {
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 52px;
+  aspect-ratio: 21/8;
+  position: relative;
+}
+.section-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.section-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bg) 30%, transparent) 0%,
+    transparent 60%
+  );
+}
+.section-banner-label {
+  position: absolute;
+  bottom: 20px;
+  left: 28px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+  line-height: 1;
+}
+
+/* ── Contact image ── */
+.contact-image {
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  aspect-ratio: 16/9;
+}
+.contact-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.contact-image:hover img { transform: scale(1.03); }
+
+/* ── Services panel image ── */
+.services-panel-image {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  aspect-ratio: 21/8;
+}
+.services-panel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ════════════ SPECTRUM ════════════ */
 #spectrum { background: var(--bg-mid); }
 
@@ -2334,19 +2474,59 @@ body.page-active .divider { display: none; }
       <strong>Is your school?</strong>
     </p>
 
-    <div class="service-grid">
-      <div class="service-card">
-        <div class="service-title display">Shift the Center</div>
-        <p class="service-desc">We redesign learning experiences so students drive — not receive.</p>
+    <div class="feature-rows">
+
+      <div class="feature-row">
+        <div class="feature-row-image">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+            alt="Students collaborating in a student-centered discussion"
+            loading="lazy"
+          />
+          <div class="feature-row-image-caption">Student-Centered Learning</div>
+        </div>
+        <div class="feature-row-text">
+          <div class="chip chip-teal">Shift the Center</div>
+          <h3 class="feature-row-title">The Student Drives.<br>Not the Content.</h3>
+          <p class="feature-row-desc">We redesign learning experiences so students are the engine — not the passenger. Subjects become tools in service of student-led inquiry, not ends in themselves.</p>
+          <a href="#" data-goto="services" class="btn-ghost">See our services →</a>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-title display">Build Real Things</div>
-        <p class="service-desc">Students solve real problems for real people — not hypothetical exercises.</p>
+
+      <div class="feature-row feature-row-reverse">
+        <div class="feature-row-image">
+          <img
+            src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=800&q=80"
+            alt="Students building real-world projects with their hands"
+            loading="lazy"
+          />
+          <div class="feature-row-image-caption">Real Projects. Real Audiences.</div>
+        </div>
+        <div class="feature-row-text">
+          <div class="chip chip-warm">Build Real Things</div>
+          <h3 class="feature-row-title">Real Problems.<br>Real Audiences.<br>Real Stakes.</h3>
+          <p class="feature-row-desc">Students solve genuine problems for genuine people — not hypothetical exercises. The work they produce is something the world actually needs, not something that ends in a bin.</p>
+          <a href="#" data-goto="proof" class="btn-ghost">See student work →</a>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-title display">AI as a Tool</div>
-        <p class="service-desc">AI expands what's possible when students already know what they're trying to do.</p>
+
+      <div class="feature-row">
+        <div class="feature-row-image">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+            alt="Student using technology as a creative and analytical tool"
+            loading="lazy"
+          />
+          <div class="feature-row-image-caption">AI as Collaborator, Not Replacement</div>
+        </div>
+        <div class="feature-row-text">
+          <div class="chip chip-teal">AI as a Tool</div>
+          <h3 class="feature-row-title">AI Expands<br>What's Possible.</h3>
+          <p class="feature-row-desc">When students know what they're trying to do — and why it matters — AI becomes a powerful collaborator. We help schools build the curriculum and culture where that happens.</p>
+          <a href="#" data-goto="services" class="btn-ghost">Our approach →</a>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -2414,6 +2594,16 @@ body.page-active .divider { display: none; }
       <div class="chip chip-teal">Vikara Forge</div>
       <h2 class="section-title display">From Passion to Impact.</h2>
       <p class="section-desc">A guided process that turns student interests into real-world change.</p>
+    </div>
+
+    <div class="section-banner">
+      <img
+        src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=80"
+        alt="Students engaged in hands-on collaborative project work"
+        loading="lazy"
+      />
+      <div class="section-banner-overlay"></div>
+      <div class="section-banner-label">Vikara Forge</div>
     </div>
 
     <div class="forge-process">
@@ -2523,6 +2713,9 @@ body.page-active .divider { display: none; }
 
       <!-- 01 Innovation Pathway -->
       <div class="services-detail-inner active" data-service="0">
+        <div class="services-panel-image">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80" alt="Students collaborating on an innovation challenge" loading="lazy" />
+        </div>
         <div class="services-detail-tagline">Designing the conditions for student-driven learning</div>
         <div class="services-detail-body">
           <div class="services-detail-col">
@@ -2557,6 +2750,9 @@ body.page-active .divider { display: none; }
 
       <!-- 02 PBL & Experiential Course Design -->
       <div class="services-detail-inner" data-service="1">
+        <div class="services-panel-image">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" alt="Teachers co-designing an experiential learning course" loading="lazy" />
+        </div>
         <div class="services-detail-tagline">Building courses where the learning is the doing</div>
         <div class="services-detail-body">
           <div class="services-detail-col">
@@ -2593,6 +2789,9 @@ body.page-active .divider { display: none; }
 
       <!-- 03 PBL & Experiential Learning Teacher Training -->
       <div class="services-detail-inner" data-service="2">
+        <div class="services-panel-image">
+          <img src="https://images.unsplash.com/photo-1531498860502-7c67cf519b9e?auto=format&fit=crop&w=1200&q=80" alt="Professional development workshop for educators" loading="lazy" />
+        </div>
         <div class="services-detail-tagline">Building the teachers who build the classrooms</div>
         <div class="services-detail-body">
           <div class="services-detail-col">
@@ -2630,6 +2829,9 @@ body.page-active .divider { display: none; }
 
       <!-- 04 Vikara Innovation Forge -->
       <div class="services-detail-inner" data-service="3">
+        <div class="services-panel-image">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80" alt="Students at the Vikara Innovation Forge working on a real project" loading="lazy" />
+        </div>
         <div class="services-detail-tagline">Where students stop imagining a better world and start designing it</div>
         <div class="services-detail-body">
           <div class="services-detail-col">
@@ -2685,6 +2887,13 @@ body.page-active .divider { display: none; }
 
     <div class="contact-grid">
       <div>
+        <div class="contact-image">
+          <img
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=700&q=80"
+            alt="Educators in a collaborative planning session"
+            loading="lazy"
+          />
+        </div>
         <p class="contact-intro serif">Ready to shift? We'd love to hear where your students are and where you want them to go.</p>
         <div class="contact-links">
           <a href="https://calendly.com/ryanmckinnie04/vikara" target="_blank" rel="noopener noreferrer" class="contact-link">
