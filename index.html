@@ -3391,10 +3391,9 @@ window.addEventListener('load', () => {
 
   vid.addEventListener('ended', reveal);
   vid.addEventListener('error', reveal);
-  vid.addEventListener('abort', reveal);
 
-  // Fallback: reveal quickly if video never loads/plays (e.g. file not found)
-  setTimeout(() => { if (!done) reveal(); }, 1200);
+  // Only reveal early if the video never started playing (autoplay blocked or load failure)
+  setTimeout(() => { if (!done && !vid.played.length) reveal(); }, 3000);
 })();
 
 /* ── Floating CTA visibility on scroll ── */
