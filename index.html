@@ -30,7 +30,12 @@ html { scroll-behavior: smooth; }
 }
 
 /* ── THEME TOKENS ── */
-:root { --radius: 8px; --transition: 0.25s ease; }
+:root {
+  --radius: 8px;
+  --transition: 0.25s ease;
+  --font-ui:   'DM Sans', sans-serif;
+  --font-body: 'Crimson Pro', serif;
+}
 
 [data-theme="light"] {
   --bg:          #EAE2D2;
@@ -52,7 +57,6 @@ html { scroll-behavior: smooth; }
   --warm-a15:    rgba(139,94,60,0.15);
   --warm-a30:    rgba(139,94,60,0.30);
   --neutral-a25: rgba(100,80,50,0.25);
-  --glow-hero:   transparent;
   --spectrum-ink-r: #8e453c;
   --spectrum-ink-p: #5c5038;
   --spectrum-ink-a: #9a6622;
@@ -79,7 +83,6 @@ html { scroll-behavior: smooth; }
   --warm-a15:    rgba(208,128,96,0.15);
   --warm-a30:    rgba(208,128,96,0.30);
   --neutral-a25: rgba(74,174,142,0.25);
-  --glow-hero:   rgba(74,174,142,0.2);
   --spectrum-ink-r: #d8a098;
   --spectrum-ink-p: #8ab89a;
   --spectrum-ink-a: #f0b878;
@@ -130,14 +133,6 @@ section { padding: 64px 0; }
 
 /* ── SECTION HEADER ── */
 .section-header { margin-bottom: 36px; text-align: center; }
-.section-number {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 80px;
-  line-height: 1;
-  color: var(--accent-a06);
-  margin-bottom: -20px;
-  display: block;
-}
 .section-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(36px, 5vw, 56px);
@@ -386,7 +381,8 @@ nav {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: color-mix(in srgb, var(--bg) 65%, transparent);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  opacity: 0;
 }
 
 .hero-scroll-hint {
@@ -433,7 +429,7 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.38;
+  opacity: 1;
   z-index: 0;
   pointer-events: none;
 }
@@ -446,6 +442,12 @@ nav {
   width: 800px; height: 800px;
   background: radial-gradient(circle, rgba(74,174,142,0.2) 0%, transparent 65%);
   pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 2s 0.8s ease;
+}
+[data-theme="dark"] #hero.hero-revealed::after {
+  opacity: 1;
 }
 
 /* ── Hero logo ── */
@@ -2006,7 +2008,6 @@ body.page-active .divider { display: none; }
     src="vikara%20video%202.mp4"
     autoplay
     muted
-    loop
     playsinline
     aria-hidden="true"
   ></video>
@@ -2861,6 +2862,63 @@ window.addEventListener('load', () => {
   segs.forEach((s, i) => { setTimeout(() => { s.style.opacity = '1'; }, i * 180); });
   setTimeout(() => { document.getElementById('se').classList.add('glow'); }, 900);
 });
+
+/* ── Hero video: play once, then fade out and reveal the CTA ── */
+(function() {
+  const vid     = document.querySelector('#hero .hero-bg-video');
+  const overlay = document.querySelector('#hero .hero-overlay');
+  const inner   = document.querySelector('#hero .hero-inner');
+  const hint    = document.querySelector('#hero .hero-scroll-hint');
+  const particles = document.getElementById('particles');
+  if (!vid) return;
+
+  // Hide hero content while video plays
+  [inner, hint, particles, overlay].forEach(el => {
+    if (el) el.style.opacity = '0';
+  });
+
+  let done = false;
+  function reveal() {
+    if (done) return;
+    done = true;
+
+    hero.classList.add('hero-revealed');
+
+    // Fade video out
+    vid.style.transition = 'opacity 2.2s ease';
+    vid.style.opacity    = '0';
+
+    // Fade overlay in — gives the settled background
+    if (overlay) {
+      overlay.style.transition = 'opacity 2s 0.2s ease';
+      overlay.style.opacity    = '1';
+    }
+
+    // Reveal particles subtly
+    if (particles) {
+      particles.style.transition = 'opacity 1.2s 0.6s ease';
+      particles.style.opacity    = '1';
+    }
+
+    // Fade in hero content (headline, CTA, etc.)
+    if (inner) {
+      inner.style.transition = 'opacity 1.2s 0.5s ease';
+      inner.style.opacity    = '1';
+    }
+
+    // Scroll hint last
+    if (hint) {
+      hint.style.transition = 'opacity 0.8s 1.6s ease';
+      hint.style.opacity    = '1';
+    }
+  }
+
+  vid.addEventListener('ended', reveal);
+  vid.addEventListener('error', reveal);
+
+  // Fallback: if autoplay is blocked, reveal after 2.5 s
+  setTimeout(() => { if (vid.paused && !vid.played.length) reveal(); }, 2500);
+})();
 
 /* ── Floating CTA visibility on scroll ── */
 (function() {
