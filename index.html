@@ -1075,7 +1075,9 @@ nav {
 .orbit-label.new { color: var(--accent); }
 
 .orbit-svg-wrap { width: 200px; margin: 0 auto 12px; }
+.orbit-svg-wrap-hero { width: 260px; }
 .orbit-caption  { font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+.orbit-svg-3d { overflow: visible; }
 
 .shift-arrow {
   font-family: 'Bebas Neue', sans-serif;
@@ -2279,6 +2281,16 @@ body.page-active .divider { display: none; }
 @keyframes orbit-spin    { from { transform: rotate(0deg); }    to { transform: rotate(360deg); } }
 @keyframes counter-spin  { from { transform: rotate(0deg); }    to { transform: rotate(-360deg); } }
 
+/* Depth-cycle keyframes: scale + opacity pulse simulating a satellite
+   swinging toward camera (front, 0%/100% for bottom-starters) and away
+   from camera (back) as it orbits within a flattened 3D plane. Each
+   satellite's sequence is phase-matched to its starting position and
+   orbit-spin direction so the "near" point in the cycle lines up with
+   the visual front of the ellipse. */
+@keyframes depth-top-normal    { 0% { transform: scale(0.75); opacity: 0.55; } 25% { transform: scale(0.975); opacity: 0.775; } 50% { transform: scale(1.2); opacity: 1; } 75% { transform: scale(0.975); opacity: 0.775; } 100% { transform: scale(0.75); opacity: 0.55; } }
+@keyframes depth-side          { 0% { transform: scale(0.975); opacity: 0.775; } 25% { transform: scale(0.75); opacity: 0.55; } 50% { transform: scale(0.975); opacity: 0.775; } 75% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.975); opacity: 0.775; } }
+@keyframes depth-bottom-reverse { 0% { transform: scale(1.2); opacity: 1; } 25% { transform: scale(0.975); opacity: 0.775; } 50% { transform: scale(0.75); opacity: 0.55; } 75% { transform: scale(0.975); opacity: 0.775; } 100% { transform: scale(1.2); opacity: 1; } }
+
 /* ════════════ CURRENT CONTEXT ════════════ */
 .context-grid {
   display: grid;
@@ -2669,22 +2681,42 @@ body.page-active .divider { display: none; }
       <div class="orbit-block">
         <p class="orbit-label old">The Old Model</p>
         <div class="orbit-svg-wrap">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <svg class="orbit-svg-3d" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <filter id="glow-old">
-                <feGaussianBlur stdDeviation="3" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              <radialGradient id="sph-old-center" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--warm) 30%, white);"/>
+                <stop offset="60%" style="stop-color: var(--warm);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--warm) 55%, black);"/>
+              </radialGradient>
+              <radialGradient id="sph-old-sat" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--text-muted) 30%, white);"/>
+                <stop offset="60%" style="stop-color: var(--text-muted);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--text-muted) 55%, black);"/>
+              </radialGradient>
+              <filter id="drop-old" x="-60%" y="-60%" width="220%" height="220%">
+                <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.35"/>
               </filter>
             </defs>
-            <circle cx="100" cy="100" r="75" fill="none" style="stroke: var(--warm-a30);" stroke-width="1" stroke-dasharray="4 4"/>
-            <circle cx="100" cy="100" r="34" style="fill: var(--warm-a10); stroke: var(--warm);" stroke-width="1.5" filter="url(#glow-old)"/>
-            <text x="100" y="96" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" style="fill: var(--warm);" font-weight="600" letter-spacing="1">SUBJECT</text>
-            <text x="100" y="108" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: var(--warm-a30);">at center</text>
-            <g style="transform-origin:100px 100px; animation: orbit-spin 8s linear infinite;">
-              <circle cx="100" cy="25" r="16" style="fill: var(--neutral-a25); stroke: var(--text-muted);" stroke-width="1.5"/>
-              <g style="transform-origin:100px 25px; animation: counter-spin 8s linear infinite;">
-                <text x="100" y="22" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: var(--text-dim);" font-weight="600">STUDENT</text>
-                <text x="100" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--text-muted);">orbits</text>
+
+            <g transform="translate(100,100) scale(1,0.42) translate(-100,-100)">
+              <ellipse cx="100" cy="100" rx="75" ry="75" fill="none" style="stroke: var(--warm-a30);" stroke-width="1" stroke-dasharray="4 4"/>
+            </g>
+
+            <circle cx="100" cy="100" r="38" style="fill: var(--warm-a06);" stroke="none"/>
+            <circle cx="100" cy="100" r="34" fill="url(#sph-old-center)" filter="url(#drop-old)"/>
+            <ellipse cx="90" cy="88" rx="10" ry="5.5" style="fill: rgba(255,255,255,0.32);" transform="rotate(-25 90 88)"/>
+            <text x="100" y="96" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" style="fill: white;" font-weight="600" letter-spacing="1">SUBJECT</text>
+            <text x="100" y="108" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: rgba(255,255,255,0.75);">at center</text>
+
+            <g transform="translate(100,100) scale(1,0.42) translate(-100,-100)">
+              <g style="transform-origin:100px 100px; animation: orbit-spin 8s linear infinite;">
+                <g style="transform-origin:100px 25px; animation: depth-top-normal 8s linear infinite;">
+                  <circle cx="100" cy="25" r="16" fill="url(#sph-old-sat)" filter="url(#drop-old)"/>
+                  <g style="transform-origin:100px 25px; animation: counter-spin 8s linear infinite;">
+                    <text x="100" y="22" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: white;" font-weight="600">STUDENT</text>
+                    <text x="100" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: rgba(255,255,255,0.75);">orbits</text>
+                  </g>
+                </g>
               </g>
             </g>
           </svg>
@@ -2697,42 +2729,88 @@ body.page-active .divider { display: none; }
       <!-- New Model -->
       <div class="orbit-block">
         <p class="orbit-label new">The Vikara Shift</p>
-        <div class="orbit-svg-wrap">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <div class="orbit-svg-wrap orbit-svg-wrap-hero">
+          <svg class="orbit-svg-3d" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <filter id="glow-new">
+              <radialGradient id="sph-new-center" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--accent) 35%, white);"/>
+                <stop offset="60%" style="stop-color: var(--accent);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--accent) 55%, black);"/>
+              </radialGradient>
+              <radialGradient id="sph-new-warm" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--warm) 35%, white);"/>
+                <stop offset="60%" style="stop-color: var(--warm);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--warm) 55%, black);"/>
+              </radialGradient>
+              <radialGradient id="sph-new-accent" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--accent) 35%, white);"/>
+                <stop offset="60%" style="stop-color: var(--accent);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--accent) 55%, black);"/>
+              </radialGradient>
+              <radialGradient id="sph-new-neutral" cx="35%" cy="28%" r="75%">
+                <stop offset="0%" style="stop-color: color-mix(in srgb, var(--text-muted) 30%, white);"/>
+                <stop offset="60%" style="stop-color: var(--text-muted);"/>
+                <stop offset="100%" style="stop-color: color-mix(in srgb, var(--text-muted) 55%, black);"/>
+              </radialGradient>
+              <filter id="drop-new" x="-60%" y="-60%" width="220%" height="220%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.4"/>
+              </filter>
+              <filter id="glow-new" x="-60%" y="-60%" width="220%" height="220%">
                 <feGaussianBlur stdDeviation="4" result="b"/>
                 <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
-            <circle cx="100" cy="100" r="75" fill="none" style="stroke: var(--accent-a15);" stroke-width="1" stroke-dasharray="3 6"/>
-            <circle cx="100" cy="100" r="52" fill="none" style="stroke: var(--warm-a15);" stroke-width="1" stroke-dasharray="3 8"/>
+
+            <!-- orbit rings flattened into a tilted, Saturn-like plane for perspective -->
+            <g transform="translate(100,100) scale(1,0.42) translate(-100,-100)">
+              <ellipse cx="100" cy="100" rx="75" ry="75" fill="none" style="stroke: var(--accent-a15);" stroke-width="1" stroke-dasharray="3 6"/>
+              <ellipse cx="100" cy="100" rx="52" ry="52" fill="none" style="stroke: var(--warm-a15);" stroke-width="1" stroke-dasharray="3 8"/>
+            </g>
+
+            <!-- satellites behind the center sphere pass under it -->
+            <g transform="translate(100,100) scale(1,0.42) translate(-100,-100)">
+              <g style="transform-origin:100px 100px; animation: orbit-spin 10s linear infinite;">
+                <g style="transform-origin:100px 28px; animation: depth-top-normal 10s linear infinite;">
+                  <circle cx="100" cy="28" r="14" fill="url(#sph-new-warm)" filter="url(#drop-new)"/>
+                  <g style="transform-origin:100px 28px; animation: counter-spin 10s linear infinite;">
+                    <text x="100" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: white;" font-weight="600">MATH</text>
+                  </g>
+                </g>
+              </g>
+              <g style="transform-origin:100px 100px; animation: orbit-spin 14s linear infinite reverse;">
+                <g style="transform-origin:172px 100px; animation: depth-side 14s linear infinite;">
+                  <circle cx="172" cy="100" r="13" fill="url(#sph-new-accent)" filter="url(#drop-new)"/>
+                  <g style="transform-origin:172px 100px; animation: counter-spin 14s linear infinite reverse;">
+                    <text x="172" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: white;" font-weight="600">ARTS</text>
+                  </g>
+                </g>
+              </g>
+              <g style="transform-origin:100px 100px; animation: orbit-spin 11s linear infinite;">
+                <g style="transform-origin:28px 100px; animation: depth-side 11s linear infinite;">
+                  <circle cx="28" cy="100" r="12" fill="url(#sph-new-neutral)" filter="url(#drop-new)"/>
+                  <g style="transform-origin:28px 100px; animation: counter-spin 11s linear infinite;">
+                    <text x="28" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: white;" font-weight="600">SCI</text>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- center sphere, rendered true (unflattened) so it reads as the dominant 3D object -->
             <circle cx="100" cy="100" r="38" style="fill: var(--accent-a06);" stroke="none"/>
-            <circle cx="100" cy="100" r="30" style="fill: var(--accent-a10); stroke: var(--accent);" stroke-width="1.5" filter="url(#glow-new)"/>
-            <text x="100" y="96" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" style="fill: var(--accent);" font-weight="600" letter-spacing="1">STUDENT</text>
-            <text x="100" y="108" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: var(--accent-a30);">at center</text>
-            <g style="transform-origin:100px 100px; animation: orbit-spin 10s linear infinite;">
-              <circle cx="100" cy="28" r="14" style="fill: var(--warm-a10); stroke: var(--warm);" stroke-width="1.5"/>
-              <g style="transform-origin:100px 28px; animation: counter-spin 10s linear infinite;">
-                <text x="100" y="31" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: var(--warm);" font-weight="600">MATH</text>
-              </g>
-            </g>
-            <g style="transform-origin:100px 100px; animation: orbit-spin 14s linear infinite reverse;">
-              <circle cx="172" cy="100" r="13" style="fill: var(--accent-a10); stroke: var(--accent);" stroke-width="1.5"/>
-              <g style="transform-origin:172px 100px; animation: counter-spin 14s linear infinite reverse;">
-                <text x="172" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--accent);" font-weight="600">ARTS</text>
-              </g>
-            </g>
-            <g style="transform-origin:100px 100px; animation: orbit-spin 11s linear infinite;">
-              <circle cx="28" cy="100" r="12" style="fill: var(--neutral-a25); stroke: var(--text-muted);" stroke-width="1.5"/>
-              <g style="transform-origin:28px 100px; animation: counter-spin 11s linear infinite;">
-                <text x="28" y="103" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--text-dim);" font-weight="600">SCI</text>
-              </g>
-            </g>
-            <g style="transform-origin:100px 100px; animation: orbit-spin 13s linear infinite reverse;">
-              <circle cx="100" cy="172" r="14" style="fill: var(--warm-a10); stroke: var(--warm);" stroke-width="1.5"/>
-              <g style="transform-origin:100px 172px; animation: counter-spin 13s linear infinite reverse;">
-                <text x="100" y="175" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: var(--warm);" font-weight="600">LANG</text>
+            <circle cx="100" cy="100" r="30" fill="url(#sph-new-center)" filter="url(#glow-new)"/>
+            <ellipse cx="91" cy="90" rx="9" ry="5" style="fill: rgba(255,255,255,0.35);" transform="rotate(-25 91 90)"/>
+            <text x="100" y="96" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" style="fill: white;" font-weight="600" letter-spacing="1">STUDENT</text>
+            <text x="100" y="108" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" style="fill: rgba(255,255,255,0.8);">at center</text>
+
+            <!-- satellite that passes in front of the center sphere -->
+            <g transform="translate(100,100) scale(1,0.42) translate(-100,-100)">
+              <g style="transform-origin:100px 100px; animation: orbit-spin 13s linear infinite reverse;">
+                <g style="transform-origin:100px 172px; animation: depth-bottom-reverse 13s linear infinite;">
+                  <circle cx="100" cy="172" r="14" fill="url(#sph-new-warm)" filter="url(#drop-new)"/>
+                  <g style="transform-origin:100px 172px; animation: counter-spin 13s linear infinite reverse;">
+                    <text x="100" y="175" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="6" style="fill: white;" font-weight="600">LANG</text>
+                  </g>
+                </g>
               </g>
             </g>
           </svg>
