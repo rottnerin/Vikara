@@ -793,6 +793,92 @@ nav {
 }
 
 /* ── Problem statement (the central indictment) ── */
+.canary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 32px 24px;
+  margin: 48px 0 0;
+}
+.canary-card-head { margin-bottom: 24px; }
+.canary-card-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+.canary-card-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  max-width: 560px;
+}
+.canary-chart { width: 100%; height: auto; display: block; overflow: visible; }
+.canary-axis { stroke: var(--border); stroke-width: 1; }
+.canary-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 4; }
+.canary-gap-line { stroke: var(--warm-a30); stroke-width: 1; stroke-dasharray: 3 4; }
+.canary-axis-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  fill: var(--text-dim);
+  letter-spacing: 0.03em;
+}
+.canary-line { fill: none; stroke-width: 2.5; }
+.canary-line-up { stroke: var(--accent); }
+.canary-line-down { stroke: var(--warm); }
+.canary-dot { stroke: var(--bg-card); stroke-width: 2; }
+.canary-dot-up { fill: var(--accent); }
+.canary-dot-down { fill: var(--warm); }
+.canary-dot-neutral { fill: var(--text-dim); }
+.canary-callout {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+}
+.canary-callout-up { fill: var(--accent); }
+.canary-callout-down { fill: var(--warm); }
+.canary-callout-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  fill: var(--text-dim);
+}
+.canary-annotation {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text);
+}
+.canary-annotation-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  fill: var(--text-dim);
+}
+.canary-legend {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.canary-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.canary-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.canary-card-source {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+  opacity: 0.75;
+  margin: 20px 0 0;
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .canary-card { padding: 24px 16px 20px; }
+  .canary-callout { font-size: 16px; }
+  .canary-callout-sub { font-size: 8.5px; }
+}
+
 .problem-statement {
   text-align: center;
   padding: 56px 24px;
@@ -2467,6 +2553,55 @@ body.page-active .divider { display: none; }
           <div class="stat-body-source">Christensen Institute</div>
         </div>
       </div>
+    </div>
+
+    <div class="canary-card">
+      <div class="canary-card-head">
+        <div>
+          <div class="canary-card-title">The canary gap widened to 19 points</div>
+          <div class="canary-card-sub">Payroll headcount of 22-to-25-year-olds by AI exposure of their occupation, Nov 2022 to Jun 2026 (Nov 2022 = 100)</div>
+        </div>
+      </div>
+
+      <svg class="canary-chart" viewBox="0 0 760 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart showing payroll headcount index diverging from 100 in November 2022 to 110 for least AI-exposed occupations and 89 for most AI-exposed occupations by June 2026">
+        <line x1="60" y1="60" x2="60" y2="250" class="canary-axis" />
+        <line x1="60" y1="250" x2="700" y2="250" class="canary-axis" />
+
+        <text x="52" y="64" class="canary-axis-label" text-anchor="end">110</text>
+        <text x="52" y="154" class="canary-axis-label" text-anchor="end">100</text>
+        <text x="52" y="244" class="canary-axis-label" text-anchor="end">90</text>
+        <line x1="60" y1="150" x2="700" y2="150" class="canary-gridline" />
+
+        <line x1="620" y1="60" x2="620" y2="250" class="canary-gap-line" />
+
+        <polyline points="60,150 620,60" class="canary-line canary-line-up" />
+        <polyline points="60,150 620,238" class="canary-line canary-line-down" />
+
+        <circle cx="60" cy="150" r="5" class="canary-dot canary-dot-neutral" />
+        <circle cx="620" cy="60" r="5" class="canary-dot canary-dot-up" />
+        <circle cx="620" cy="238" r="5" class="canary-dot canary-dot-down" />
+
+        <text x="60" y="272" class="canary-axis-label" text-anchor="start">NOV 2022</text>
+        <text x="620" y="272" class="canary-axis-label" text-anchor="end">JUN 2026</text>
+
+        <text x="632" y="52" class="canary-callout canary-callout-up">+10%</text>
+        <text x="632" y="72" class="canary-callout-sub">least exposed occupations</text>
+        <text x="632" y="86" class="canary-callout-sub">exposure quintiles 1 to 3</text>
+
+        <text x="632" y="255" class="canary-callout canary-callout-down">-11%</text>
+        <text x="632" y="275" class="canary-callout-sub">most exposed occupations</text>
+        <text x="632" y="289" class="canary-callout-sub">exposure quintiles 4 and 5</text>
+
+        <text x="330" y="140" class="canary-annotation" text-anchor="middle">19-point gap in Jun 2026</text>
+        <text x="330" y="158" class="canary-annotation-sub" text-anchor="middle">15 points in the Jul 2025 data</text>
+      </svg>
+
+      <div class="canary-legend">
+        <span class="canary-legend-item"><span class="canary-legend-dot canary-dot-up"></span>Least exposed occupations</span>
+        <span class="canary-legend-item"><span class="canary-legend-dot canary-dot-down"></span>Most exposed occupations</span>
+      </div>
+
+      <p class="canary-card-source">Source: Brynjolfsson, Chandar, Chen, "Canaries in the Coal Mine," August 2026 update, Stanford Digital Economy Lab. ADP payroll data, balanced firm panel of 3.5M to 5M employees per month. Exposure quintiles from Eloundou et al. (2024).</p>
     </div>
 
     <div class="problem-statement">
